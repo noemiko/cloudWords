@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <title>Word clouds</title>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,700' rel='stylesheet' type='text/css'>
+  <link href='css/main.css' rel='stylesheet' type='text/css'>
+  <meta name="viewport" content="width=device-width">
+</head>
+<body>
+  
+  <header class="page-header">
+    <h1 class="page-title">CLoud text</h1>
+    <nav class="page-nav" id="navigation">
+      <h2>Page Navigation</h2>   
+      <ul>
+      <li><a href="#" title="Open page to generate words clouds">New Cloud</a></li>
+      <li><a href="#" title="History of your clouds">History</a></li>
+      <li><a href="#" title="Sign up if you don't have account">Sign up</a></li>
+      </ul>
+      <button class="hamburger" title="Open menu" aria-label="navigation menu">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="35" height="12" viewBox="0 0 35 12" class="hamburger-icon">
+          <path d="M-0.000,12.000 L-0.000,8.000 L35.000,8.000 L35.000,12.000 L-0.000,12.000 ZM-0.000,0.000 L35.000,0.000 L35.000,4.000 L-0.000,4.000 L-0.000,0.000 Z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="28.312" height="27.594" viewBox="0 0 28.312 27.594" class="close-icon">
+          <path d="M28.298,2.831 L16.984,14.145 L27.591,24.751 L24.763,27.580 L14.156,16.973 L3.549,27.580 L0.721,24.751 L11.328,14.145 L0.014,2.831 L2.842,0.003 L14.156,11.316 L25.470,0.003 L28.298,2.831 Z"/>
+        </svg>
+      </button>
+    </nav>
+  </header>
+  <main>
+  <article class="article">
+    <header class="article-header">
+      <h2>FIRST WAS THE WORD</h2>
+      <p class="article-lead">Show your text in the cloud</p>
+      <div class="author-info">
+        <img src="img/big-clouds-md.png" alt="cloud" >
+        
+      </div>
+    </header>
+   
+  </article>
+  </main>
+  <footer class="page-footer">
+    <ul>
+      <li><a href="#" title="Open page to generate words clouds">New Cloud</a></li>
+      <li><a href="#" title="History">History</a></li>
+      <li><a href="#" title="Sign up if you don't have account">Sign up</a></li>
+    </ul>
+  </footer>
+  <script>
+    var hamburger = document.querySelector(".hamburger");
+    hamburger.addEventListener("click", function () {
+      var isExpanded = hamburger.getAttribute("aria-expanded");
+      console.log(isExpanded);
+      if (isExpanded === "false") {
+        document.querySelector(".page-header").classList.add("nav-opened");
+        hamburger.setAttribute("aria-expanded", "true");
+      } else {
+        document.querySelector(".page-header").classList.remove("nav-opened");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+    }, false);
+    hamburger.setAttribute("role", "button"); 
+    hamburger.setAttribute("aria-controls", "navigation");
+    hamburger.setAttribute("aria-expanded", "false");
+    document.body.classList.add("js");
+  </script>
+</body>
+</html>
