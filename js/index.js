@@ -1,24 +1,27 @@
-function createCanvasWithWordCloud(){
+function createCanvasWithWordCloud() {
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
     createTextCloud(ctx);
 };
 
-function getTextWithSizeArray(){
+function getTextWithSizeArray(numberOfIterations, maxSize, minSize){
     let array =[]
-    for(let i=0;i<50;i+=1){
+    for(let i=0;i<numberOfIterations;i+=1){
         
-       array.push(['Marek'+i,Math.random()*50+8]) 
+       array.push(['Text'+i,Math.random()*maxSize+minSize]) 
     }
     return array;
-    
 }
-
 function createTextCloud(ctx){
+    createWords(1, 70, 70, ctx);
+    createWords(20,20, 20, ctx);
+    createWords(40,15, 5, ctx);
+}
+function createWords(numberOfIterations, maxSize,minSize,ctx){
     
     let angle= 0,
         radius= 0;
-    let userTexts = getTextWithSizeArray();
+    let userTexts = getTextWithSizeArray(numberOfIterations, maxSize,minSize);
     let startPoint = {x:ctx.canvas.width/2-150,
                       y:ctx.canvas.height/2-100}
     
@@ -28,20 +31,20 @@ function createTextCloud(ctx){
         radius += 5;
         textOptions[2]= ctx.measureText(textOptions[0]).width;
         
-        let coordinations = getSpiralCoordination(startPoint, textOptions, angle, radius,ctx);
+        let coordinations = getSpiralCoordination(textOptions, ctx);
         
         while(true){
-            let new_cor = isOccupied(coordinations, textOptions, ctx);
-            if (new_cor === null) { 
+            let newCordination = getNewCoordinationsWhenOccupied(coordinations, textOptions, ctx);
+            if (newCordination === null) { 
                 break;
             }
-            coordinatons = isOccupied(coordinations, textOptions, ctx);
+            coordinatons = newCordination;
         }
       //  setRedPointsInTheCorners(coordinations.x, coordinations.y,coordinations.x2,coordinations.y2, ctx)
         ctx.fillText(textOptions[0], coordinations.x, coordinations.y); 
     });
 }
-function isOccupied(coordination, textOptions, ctx){
+function getNewCoordinationsWhenOccupied(coordination, textOptions, ctx){
     let width = Math.floor(textOptions[2]);
     let size =  Math.floor(textOptions[1]);
     let rectangleText = ctx.getImageData(coordination.x,coordination.y,width, size);
@@ -51,7 +54,7 @@ function isOccupied(coordination, textOptions, ctx){
         column+=1;
         
        if(rectangleText.data[i]) {
-
+           //return getSpiralCoordination(0, 0, 0, 0,ctx)
            return getCoordinationsNextToCOlision(row,column,width,size,coordination,i); 
        }
     }
@@ -65,15 +68,15 @@ function getCoordinationsNextToCOlision(row,column,width,size,coordination,i){
                   // console.log(row);
                    //console.log('piksel'+i/4)    
                }
-    let change = 1;
+    let change = 5;
                if(column<=width/2){
                    // kolizja z lewej
                     coordination.x+= change;
                     coordination.x2+= change;
                 }else{
                    // kolizja z prawej
-                    coordination.x-= change;
-                    coordination.x2-= change;
+                    coordination.x-= 10;
+                    coordination.x2-= 10;
                 }
            
                 if(row<=size/2 ){
@@ -116,19 +119,24 @@ function getProbablyEmptyCoordinations(coordinatons,ctx){
      return {x:20,y:20}
 }
 
-function getSpiralCoordination(startPoint, textOptions, angle, radius,ctx){
+function getSpiralCoordination(textOptions, ctx){
    let cos = Math.cos,
        sin = Math.sin,
        word = textOptions[0],
        size = textOptions[1]*0.9,
-       width = textOptions[2];
+       width = textOptions[2],
+       radius = 150;
+    
+    var pt_angle = Math.random() * 2 * Math.PI;
+    var pt_radius_sq = Math.random() * radius * radius;
+    var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
+    var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
-    let x = startPoint.x+ radius * Math.cos(angle);
-    let y = startPoint.y+ radius * Math.sin(angle);
+    let x = pt_x+ctx.canvas.width / 2;
+    let y = pt_y + ctx.canvas.height / 2-50
     
     let x2 =x + width;
     let y2 =y + size;
-    //setRedPointsInTheCorners(x, y,x2,y2, ctx)
     return {x:x, y:y, x2:x2, y2:y2};
 }
 
@@ -140,7 +148,7 @@ function setTextOptionsOnCanvas(textOptions,ctx){
     ctx.textAlign = "start";
     ctx.textBaseline = "hanging";
     ctx.fillStyle = getRandomColor();
-    let      rotate=90 * (Math.PI / 180);
+    let rotate=90 * (Math.PI / 180);
     
 }
 
