@@ -18,7 +18,7 @@ function createTextCloud(ctx){
     createWords(40,15, 5, ctx);
 }
 function createWords(numberOfIterations, maxSize,minSize,ctx){
-    
+    let isRotate =true;
     let angle= 0,
         radius= 0;
     let userTexts = getTextWithSizeArray(numberOfIterations, maxSize,minSize);
@@ -31,30 +31,53 @@ function createWords(numberOfIterations, maxSize,minSize,ctx){
         radius += 5;
         textOptions[2]= ctx.measureText(textOptions[0]).width;
         
-        let coordinations = getSpiralCoordination(textOptions, ctx);
+        let coordinations = getSpiralCoordination(textOptions, isRotate, ctx);
+        
+         isRotate =! isRotate;
+       rotate=90 * (Math.PI / 180);
         
         while(true){
-            let newCordination = getNewCoordinationsWhenOccupied(coordinations, textOptions, ctx);
+            let newCordination = getNewCoordinationsWhenOccupied(coordinations, textOptions,isRotate, ctx);
             if (newCordination === null) { 
                 break;
             }
-            coordinatons = newCordination;
+            coordinations = newCordination;
         }
-      //  setRedPointsInTheCorners(coordinations.x, coordinations.y,coordinations.x2,coordinations.y2, ctx)
-        ctx.fillText(textOptions[0], coordinations.x, coordinations.y); 
+        
+        ctx.save();  
+     
+    ctx.translate(coordinations.x , coordinations.y);
+      if(isRotate===true){
+     ctx.textAlign = "left";
+     ctx.textBaseline = "alphabetic";
+     ctx.rotate(rotate);
+  
+      }
+     ctx.fillText(textOptions[0], 0, 0);  
+    ctx.restore();
+ 
+        
+  // setRedPointsInTheCorners(coordinations.x, coordinations.y,coordinations.x2,coordinations.y2, ctx)
+       
     });
 }
-function getNewCoordinationsWhenOccupied(coordination, textOptions, ctx){
+function getNewCoordinationsWhenOccupied(coordination, textOptions,isRotate, ctx){
     let width = Math.floor(textOptions[2]);
     let size =  Math.floor(textOptions[1]);
-    let rectangleText = ctx.getImageData(coordination.x,coordination.y,width, size);
+    let rectangleText;
+    if(isRotate===true){
+       rectangleText = ctx.getImageData(coordination.x,coordination.y,size, width);
+       }
+    else{
+       rectangleText = ctx.getImageData(coordination.x,coordination.y,width, size);  
+    }
+   
     let row = 0;
     let column = 0;
     for(let i= 0;i < width * size*4;i=i+4){
         column+=1;
         
        if(rectangleText.data[i]) {
-           //return getSpiralCoordination(0, 0, 0, 0,ctx)
            return getCoordinationsNextToCOlision(row,column,width,size,coordination,i); 
        }
     }
@@ -75,8 +98,8 @@ function getCoordinationsNextToCOlision(row,column,width,size,coordination,i){
                     coordination.x2+= change;
                 }else{
                    // kolizja z prawej
-                    coordination.x-= 10;
-                    coordination.x2-= 10;
+                    coordination.x-= 15;
+                    coordination.x2-= 15;
                 }
            
                 if(row<=size/2 ){
@@ -119,7 +142,7 @@ function getProbablyEmptyCoordinations(coordinatons,ctx){
      return {x:20,y:20}
 }
 
-function getSpiralCoordination(textOptions, ctx){
+function getSpiralCoordination(textOptions,isRotate, ctx){
    let cos = Math.cos,
        sin = Math.sin,
        word = textOptions[0],
@@ -132,11 +155,20 @@ function getSpiralCoordination(textOptions, ctx){
     var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
     var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
-    let x = pt_x+ctx.canvas.width / 2;
-    let y = pt_y + ctx.canvas.height / 2-50
-    
-    let x2 =x + width;
-    let y2 =y + size;
+    let x = pt_x+ctx.canvas.width / 2-100;
+    let y = pt_y + ctx.canvas.height / 2-70
+    let x2;
+    let y2;
+    console.log(isRotate);
+    if(isRotate===true){
+        y2 =Math.floor(y+size*0.8);
+        x2 = Math.floor(x+width); 
+        
+    }else{
+        y2 =Math.floor(y+width);
+        x2 = Math.floor(x+size*0.8); 
+    }
+
     return {x:x, y:y, x2:x2, y2:y2};
 }
 
@@ -147,7 +179,8 @@ function setTextOptionsOnCanvas(textOptions,ctx){
     ctx.font = size+"px "+getRandomFont();
     ctx.textAlign = "start";
     ctx.textBaseline = "hanging";
-    ctx.fillStyle = getRandomColor();
+    ctx.fillStyle ='red';
+        //getRandomColor();
     let rotate=90 * (Math.PI / 180);
     
 }
