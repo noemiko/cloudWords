@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-creator',
+  selector: 'creator',
   templateUrl: './creator.component.html',
   styleUrls: ['./creator.component.css']
 })
