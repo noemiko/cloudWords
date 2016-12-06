@@ -1,0 +1,22 @@
+ul{
+  background-color: #F5F7F8;
+  text-align: center;
+  padding-top: 74px;
+  padding-bottom: 47px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul li {
+  display: block;
+  margin-bottom: 35px;
+}
+
+ul li a {
+  color: #00BFA5;
+  text-decoration: none;
+}

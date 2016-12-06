@@ -1,0 +1,15 @@
+.start-header {
+  background: url(app/img/header-bgr.jpg) no-repeat;
+  background-size: cover;
+  background-position: 50%;
+  padding-top: 100px;
+  padding-bottom: 20px;
+  text-align: center;
+  
+  box-sizing: border-box;
+  min-height: 60vh;
+  color: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 0;
+}
