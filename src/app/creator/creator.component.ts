@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./creator.component.css']
 })
 export class CreatorComponent implements OnInit {
+  private ShowInput:boolean = false;
 
+  private showInput():void{
+    this.ShowInput=!this.ShowInput;
+  }
   constructor() { }
 
   ngOnInit() {
+
   }
 
 }

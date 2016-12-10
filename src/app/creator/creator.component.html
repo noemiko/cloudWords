@@ -1,9 +1,14 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-6">
-      <button type="button" class="btn btn-default btn-block">Input Text</button>
+      <button type="button" class="btn btn-default btn-block" (click)="showInput()">Input Text</button>
+        <div *ngIf="ShowInput">
+           <input-data-text></input-data-text>
+        </div>
+        
       <button type="button" class="btn btn-default btn-block">Parsing Options</button>
       <button type="button" class="btn btn-default btn-block">Text Options</button>
+      
       
     </div>
     <div class="col-sm-6">

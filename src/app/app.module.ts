@@ -8,6 +8,9 @@ import { HeaderComponent } from './header/header.component';
 import { ContentComponent } from './content/content.component';
 import { FooterComponent } from './footer/footer.component';
 import { CreatorComponent } from './creator/creator.component';
+import { InputDataTextComponent } from './creator/input-data-text/input-data-text.component';
+import { CloudService } from './creator/cloud-service.service';
+
 
 @NgModule({
   declarations: [
@@ -15,14 +18,15 @@ import { CreatorComponent } from './creator/creator.component';
     HeaderComponent,
     ContentComponent,
     FooterComponent,
-    CreatorComponent
+    CreatorComponent,
+    InputDataTextComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [],
+  providers: [CloudService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
