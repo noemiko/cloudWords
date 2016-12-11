@@ -8,13 +8,13 @@
         
       <button type="button" class="btn btn-default btn-block">Parsing Options</button>
       <button type="button" class="btn btn-default btn-block">Text Options</button>
-      <button type="button" class="btn btn-primary btn-block">Generate Own Cloud</button>
+      <button type="button" class="btn btn-primary btn-block" (click)="generateCloud()">Generate Own Cloud</button>
       
     </div>
     <div class="col-sm-6">
 
       <canvas #canvas width="1000px" height="1000px" style= "border:1px solid black; display:none;"></canvas>
-       <img #canvasImage id="canvasImg" width="500px" height="500px" alt="Right click to save me!" [src]="canvasUrl">
+       <img #canvasImage id="canvasImg" width="300px" height="300px" [src]="canvasUrl">
     </div>
   </div>
 </div>

@@ -9,7 +9,7 @@ import { CloudGenerator } from './cloud/cloudGenerator';
 export class CreatorComponent implements OnInit {
   private canvaCloud: CanvasRenderingContext2D;
   private textToManipulate:string;
-  private canvasUrl ;
+  private canvasUrl = '' ;
 
   private ShowInput:boolean = false;
   @ViewChild("canvas") canvas: ElementRef; 
@@ -19,14 +19,15 @@ export class CreatorComponent implements OnInit {
   private showInput():void{
     this.ShowInput=!this.ShowInput;
   }
+  private generateCloud():void{
+   let cloud = new CloudGenerator(this.textToManipulate, this.canvaCloud);
+   this.canvasUrl = cloud.getImageUri();
+  }
   constructor() { 
   }
 
  private setTextToManipulate(input:string){
    this.textToManipulate = input;
-   let cloud = new CloudGenerator(this.textToManipulate, this.canvaCloud);
-   this.canvasUrl = cloud.getImageUri();
-   console.log(cloud.getImageUri())
   }
 
   ngOnInit() {

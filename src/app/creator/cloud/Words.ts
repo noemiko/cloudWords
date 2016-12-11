@@ -6,13 +6,13 @@ export class Words {
     private words:Word[]
 
     constructor(text:string) {
-        this.words = this.getTextStructure(text);
+        this.words = this.setTextStructure(text);
     }
-    public getWords():Word[]{
+    public getTextStructure():Word[]{
         return this.words;
     }
 
-private getTextStructure(text:string):Word[]{
+private setTextStructure(text:string):Word[]{
     let textStructure:Word[];
     if (this.isTextCsv(text)){
           textStructure = this.getTextStructureWithSpecifiedSizes(text);
