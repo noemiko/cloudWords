@@ -6,6 +6,7 @@ export class Word {
     public color: string;
     public font:string;
     public width:number;
+    public isRotated:boolean;
 
     constructor(text:string,size:number) {
         this.text = text;

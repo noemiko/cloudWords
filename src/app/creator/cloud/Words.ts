@@ -13,11 +13,22 @@ export class Words {
     }
 
 private getTextStructure(text:string):Word[]{
+    let textStructure:Word[];
     if (this.isTextCsv(text)){
-          return this.getTextStructureWithSpecifiedSizes(text);
+          textStructure = this.getTextStructureWithSpecifiedSizes(text);
      }else{
-         return this.getTextStructureWithRandomSizes(text)
+         textStructure = this.getTextStructureWithRandomSizes(text)
      }
+     return this.setIsWordRotated(textStructure);
+}
+
+private setIsWordRotated(textStructure:Word[]):Word[]{
+    let isRotate = false;
+    textStructure.forEach(word=>{
+        word.isRotated = isRotate;
+        isRotate =! isRotate;
+    })
+    return textStructure;
 }
 
 private isTextCsv(text){
@@ -30,7 +41,7 @@ private getTextStructureWithSpecifiedSizes(text:string):Word[]{
 
      textRows.forEach(wordRow =>{
        let wordWithSize = wordRow.split(',');
-      wordsWithSize.push( new Word(wordWithSize[0],Number(wordWithSize[1]));
+      wordsWithSize.push( new Word(wordWithSize[0],Number(wordWithSize[1])));
     })
     return wordsWithSize;
 }
@@ -39,12 +50,13 @@ private getTextStructureWithRandomSizes(text:string):Word[]{
     let wordsWithSize:Word[]=[];
     let words:string[] = text.split(' ');
    
+   words = words.filter(value => value.length !== 0);
+
     words.forEach(word=>{
         let randomSize = Math.floor(Math.random() * 70+10);
         wordsWithSize.push( new Word(word,randomSize));
     })
     return wordsWithSize;   
 }
-
 
 }
