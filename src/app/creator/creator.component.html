@@ -3,17 +3,17 @@
     <div class="col-sm-6">
       <button type="button" class="btn btn-default btn-block" (click)="showInput()">Input Text</button>
         <div *ngIf="ShowInput">
-           <input-data-text></input-data-text>
+           <input-data-text (textToManipulate)="setTextToManipulate($event)"></input-data-text>
         </div>
         
       <button type="button" class="btn btn-default btn-block">Parsing Options</button>
       <button type="button" class="btn btn-default btn-block">Text Options</button>
-      
+      <button type="button" class="btn btn-primary btn-block">Generate Own Cloud</button>
       
     </div>
     <div class="col-sm-6">
 
-      <img src="app/img/example.png" class="img-responsive" alt="cloud of words">
+      <canvas #canvas width="400px" height="300px" style= "border:1px solid black"></canvas>
     </div>
   </div>
 </div>

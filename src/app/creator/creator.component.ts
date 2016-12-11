@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { CloudGenerator } from './cloud/cloudGenerator';
 
 @Component({
   selector: 'creator',
@@ -6,14 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./creator.component.css']
 })
 export class CreatorComponent implements OnInit {
-  private ShowInput:boolean = false;
+  private canvaCloud: CanvasRenderingContext2D;
+  private textToManipulate:string;
 
+  private ShowInput:boolean = false;
+  @ViewChild("canvas") canvas: ElementRef; 
   private showInput():void{
     this.ShowInput=!this.ShowInput;
   }
-  constructor() { }
+  constructor() { 
+  }
+
+ private setTextToManipulate(input:string){
+   this.textToManipulate = input;
+   let dsfsdf = new CloudGenerator(this.textToManipulate, this.canvaCloud);
+  }
 
   ngOnInit() {
+ this.canvaCloud = this.canvas.nativeElement.getContext("2d");
+ //this.canvaCloud.scale(0.5,0.5);
 
   }
 

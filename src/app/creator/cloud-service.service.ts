@@ -3,8 +3,12 @@ private TextForCloud = '';
 
 public set textForCloud(input:string){
     this.TextForCloud = input;
-    console.log(this.TextForCloud)
 }
+
+public get textForCloud():string{
+  return this.TextForCloud;
+}
+
   constructor() { }
 
 }
