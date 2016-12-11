@@ -1,14 +1,11 @@
 import { Point } from './Point';
 export class Rectangle {
     public leftUp:Point;
-    public rightUp:Point;
-    public leftDown:Point;
     public rightDown:Point;
 
-    constructor(leftUp:Point,rightUp:Point, leftDown:Point, rightDown:Point) {
-        this.leftDown = leftUp;
-        this.rightUp = rightUp;
-        this.leftDown = leftDown;
+    constructor(leftUp:Point, rightDown:Point){
+        this.leftUp = leftUp;
         this. rightDown = rightDown;
+
     }
-} 
+}
