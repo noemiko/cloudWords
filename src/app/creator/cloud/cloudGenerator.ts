@@ -13,44 +13,51 @@ export class CloudGenerator {
      this.generateCloud(wordsStructure, this.canvas);
 }
 
-private cleanCanvas(canvas:CanvasRenderingContext2D){
-  canvas.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
-}
 private generateCloud(words:Word[], canvas:CanvasRenderingContext2D){
     this.cleanCanvas(canvas);
-     let rotate =90 * (Math.PI / 180);
 
     words.forEach(word=>{
 
         this.setTextOptionsOnCanvas(word, canvas);
 
         word.width= canvas.measureText(word.text).width;
-        let coordinates:Rectangle = this.getStartedCoordinates(word, canvas)
+        
+        let coordinates:Rectangle= this.getEmptyCoordinates(word, canvas)
+        this.drawWordOnCanvas(canvas, coordinates, word);
 
-         while(true){
+    })
+}
+
+private cleanCanvas(canvas:CanvasRenderingContext2D){
+  canvas.clearRect(0, 0, canvas.canvas.width, canvas.canvas.height);
+}
+
+private drawWordOnCanvas (canvas:CanvasRenderingContext2D, coordinates:Rectangle, word:Word ):void{
+    canvas.save();  
+    canvas.translate(coordinates.leftUp.x , coordinates.leftUp.y);
+    if(word.degrees >0){
+        canvas.rotate(word.degrees);
+    }
+    canvas.fillText(word.text, 0, 0);  
+    canvas.restore();
+}
+
+private getEmptyCoordinates(word:Word, canvas:CanvasRenderingContext2D):Rectangle{
+    let coordinates:Rectangle = this.getStartedCoordinates(word, canvas)
+
+      while(true){
             let newCordinates = this.getNewCoordinatesWhenOccupied(coordinates, word , canvas);
             if (newCordinates === null) { 
                 break;
             }
             coordinates = newCordinates;
         }
-        canvas.save();  
-        canvas.translate(coordinates.leftUp.x , coordinates.leftUp.y);
-        if(word.isRotated ===true){
-            canvas.textAlign = "left";
-            canvas.textBaseline = "alphabetic";
-            canvas.rotate(rotate);
-        }
-        canvas.fillText(word.text, 0, 0);  
-        canvas.restore();
-    })
+        return coordinates
 }
 
 public getImageUri(){
     return this.canvas.canvas.toDataURL();
 }
-
-
 
 private getNewCoordinatesWhenOccupied(coordinates:Rectangle, word:Word, ctx:CanvasRenderingContext2D){
     let rectangleText = this.getTextAreaPixels(word,coordinates,ctx)
@@ -90,7 +97,6 @@ private getCoordinatesNextToColision(row,column, word:Word, coordinates:Rectangl
                     coordinates.leftUp.x -= 15;
                     coordinates.rightDown.x -= 15;
                 }
-           
                 if(row<=word.size/2 ){
                    //kolizja u góry
                     coordinates.leftUp.y += change;
@@ -130,9 +136,14 @@ private getStartedCoordinates(word:Word, ctx:CanvasRenderingContext2D):Rectangle
 }
 
 private setTextOptionsOnCanvas(word:Word, ctx:CanvasRenderingContext2D){ 
+    if(word.degrees>0){
+        ctx.textAlign = "left";
+        ctx.textBaseline = "alphabetic";
+    }else{
+        ctx.textAlign = "start";
+        ctx.textBaseline = "hanging";
+    }
     ctx.font = word.size+"px "+word.font;
-    ctx.textAlign = "start";
-    ctx.textBaseline = "hanging";
     ctx.fillStyle =word.color;
 }
 

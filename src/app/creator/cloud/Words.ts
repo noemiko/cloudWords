@@ -25,7 +25,13 @@ private setTextStructure(text:string):Word[]{
 private setIsWordRotated(textStructure:Word[]):Word[]{
     let isRotate = false;
     textStructure.forEach(word=>{
-        word.isRotated = isRotate;
+        word.isRotated= isRotate;
+        if( isRotate){
+             word.degrees = 90 * (Math.PI / 180);
+        }else{
+            word.degrees = 0;
+        }
+       
         isRotate =! isRotate;
     })
     return textStructure;

@@ -7,6 +7,7 @@ export class Word {
     public font:string;
     public width:number;
     public isRotated:boolean;
+    public degrees:number;
 
     constructor(text:string,size:number) {
         this.text = text;
@@ -14,7 +15,6 @@ export class Word {
         this.color = this.setRandomColor();
         this.font = this.getRandomFont();
     }
-
 
     private setRandomColor() {
         var letters = '012345'.split('');
@@ -26,7 +26,6 @@ export class Word {
         }
         return color;
     }
-
 
     private getRandomFont(){
         let fontType = [ "Arial", "Verdana", "Helvetica","Calibri"];
