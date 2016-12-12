@@ -1,0 +1,18 @@
+<table>
+        <thead>
+            <th>Text</th>
+            <th>Size</th>
+            <th>Color</th>
+            <th>Font</th>
+            <th>Rotation</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let i of data">
+                <td>{{i.text}}</td>
+                <td>{{i.size}}</td>
+                <td>{{i.color}}</td>
+                <td>{{i.font}}</td>
+                <td>{{i.degrees}}</td>
+            </tr>
+        </tbody>
+    </table>

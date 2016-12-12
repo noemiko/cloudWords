@@ -10,6 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CreatorComponent } from './creator/creator.component';
 import { InputDataTextComponent } from './creator/input-data-text/input-data-text.component';
 import { CloudService } from './creator/cloud-service.service';
+import { CloudDataGridComponent } from './creator/cloud-data-grid/cloud-data-grid.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CloudService } from './creator/cloud-service.service';
     ContentComponent,
     FooterComponent,
     CreatorComponent,
-    InputDataTextComponent
+    InputDataTextComponent,
+    CloudDataGridComponent
   ],
   imports: [
     BrowserModule,

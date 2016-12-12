@@ -5,8 +5,11 @@ export class Words {
     private text:string;
     private words:Word[]
 
-    constructor(text:string) {
-        this.words = this.setTextStructure(text);
+    constructor() {
+       
+    }
+    public generateStructure(text:string){
+         this.words = this.setTextStructure(text);
     }
     public getTextStructure():Word[]{
         return this.words;

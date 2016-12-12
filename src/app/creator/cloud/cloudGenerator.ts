@@ -6,10 +6,8 @@ import { Rectangle } from './Rectangle';
 export class CloudGenerator {
     private canvas : CanvasRenderingContext2D;
 
- constructor(text:string, canvas:CanvasRenderingContext2D) { 
+ constructor(wordsStructure:Word[], canvas:CanvasRenderingContext2D) { 
      this.canvas = canvas;
-     let words = new Words(text);
-     let wordsStructure = words.getTextStructure();
      this.generateCloud(wordsStructure, this.canvas);
 }
 
@@ -22,7 +20,7 @@ private generateCloud(words:Word[], canvas:CanvasRenderingContext2D){
 
         word.width= canvas.measureText(word.text).width;
         
-        let coordinates:Rectangle= this.getEmptyCoordinates(word, canvas)
+        let coordinates:Rectangle= this.getEmptyCoordinatesAtCanvas(word, canvas)
         this.drawWordOnCanvas(canvas, coordinates, word);
 
     })
@@ -42,11 +40,22 @@ private drawWordOnCanvas (canvas:CanvasRenderingContext2D, coordinates:Rectangle
     canvas.restore();
 }
 
-private getEmptyCoordinates(word:Word, canvas:CanvasRenderingContext2D):Rectangle{
+private getEmptyCoordinatesAtCanvas(word:Word, canvas:CanvasRenderingContext2D):Rectangle{
     let coordinates:Rectangle = this.getStartedCoordinates(word, canvas)
+    
+        return this.getEmptyCoordinates(coordinates,word, canvas);
+        
+        //if(!this.isOutOfCanvas(coordinates, canvas)){
+          //  return coordinates;
+        //}else{
+         //   return this.getEmptyCoordinatesAtCanvas(word, canvas);
+        //}    
+}
 
-      while(true){
+private getEmptyCoordinates(coordinates, word, canvas){
+    while(true){
             let newCordinates = this.getNewCoordinatesWhenOccupied(coordinates, word , canvas);
+
             if (newCordinates === null) { 
                 break;
             }
@@ -54,7 +63,17 @@ private getEmptyCoordinates(word:Word, canvas:CanvasRenderingContext2D):Rectangl
         }
         return coordinates
 }
-
+private isOutOfCanvas(coordinates:Rectangle,ctx:CanvasRenderingContext2D):boolean{
+    if(coordinates.leftUp.x<0||coordinates.leftUp.y<0||
+        coordinates.leftUp.x>ctx.canvas.width||coordinates.leftUp.y>ctx.canvas.height){
+        return true;
+    }
+    else if(coordinates.rightDown.x<0||coordinates.rightDown.y<0||
+        coordinates.rightDown.x>ctx.canvas.width||coordinates.rightDown.y>ctx.canvas.height){
+            return true;
+        }
+        return false;
+}
 public getImageUri(){
     return this.canvas.canvas.toDataURL();
 }
@@ -90,12 +109,12 @@ private getCoordinatesNextToColision(row,column, word:Word, coordinates:Rectangl
     let change = 2;
                if(column<=word.width/2){
                    // kolizja z lewej
-                    coordinates.leftUp.x += change;
-                    coordinates.rightDown.x += change;
+                    coordinates.leftUp.x += 20;
+                    coordinates.rightDown.x += 20;
                 }else{
                    // kolizja z prawej
-                    coordinates.leftUp.x -= 15;
-                    coordinates.rightDown.x -= 15;
+                    coordinates.leftUp.x -= 20;
+                    coordinates.rightDown.x -= 20;
                 }
                 if(row<=word.size/2 ){
                    //kolizja u góry
@@ -112,15 +131,15 @@ private getCoordinatesNextToColision(row,column, word:Word, coordinates:Rectangl
 private getStartedCoordinates(word:Word, ctx:CanvasRenderingContext2D):Rectangle{
    let cos = Math.cos,
        sin = Math.sin,
-       radius:number = 100;
+       radius:number = 150;
     
     var pt_angle = Math.random() * 2 * Math.PI;
     var pt_radius_sq = Math.random() * radius * radius;
     var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
     var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
-    let x = pt_x+ 500;
-    let y = pt_y + 100;
+    let x = pt_x+ 400;
+    let y = pt_y + 300;
 
     let x2;
     let y2;

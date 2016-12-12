@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CloudGenerator } from './cloud/cloudGenerator';
+import { Words } from './cloud/Words';
+import { Word } from './cloud/Word';
 
 @Component({
   selector: 'creator',
@@ -10,8 +12,10 @@ export class CreatorComponent implements OnInit {
   private canvaCloud: CanvasRenderingContext2D;
   private textToManipulate:string;
   private canvasUrl = '' ;
-
+  private words:Words = new Words()
   private ShowInput:boolean = false;
+  private ShowDataGrid:boolean = false;
+  private textStructure:Word[];
   @ViewChild("canvas") canvas: ElementRef; 
   @ViewChild("canvasImage") canvasImage: HTMLImageElement; 
 
@@ -19,8 +23,13 @@ export class CreatorComponent implements OnInit {
   private showInput():void{
     this.ShowInput=!this.ShowInput;
   }
+
+  private showDataGrid():void{
+    this.ShowDataGrid=!this.ShowDataGrid;
+  }
+
   private generateCloud():void{
-   let cloud = new CloudGenerator(this.textToManipulate, this.canvaCloud);
+   let cloud = new CloudGenerator(this.words.getTextStructure(), this.canvaCloud);
    this.canvasUrl = cloud.getImageUri();
   }
   constructor() { 
@@ -28,6 +37,8 @@ export class CreatorComponent implements OnInit {
 
  private setTextToManipulate(input:string){
    this.textToManipulate = input;
+   this.words.generateStructure(this.textToManipulate);
+   this.textStructure = this.words.getTextStructure();
   }
 
   ngOnInit() {

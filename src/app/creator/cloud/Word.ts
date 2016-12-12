@@ -11,7 +11,7 @@ export class Word {
 
     constructor(text:string,size:number) {
         this.text = text;
-        this.size = size * 0.9;
+        this.size = Math.floor(size * 0.9);
         this.color = this.setRandomColor();
         this.font = this.getRandomFont();
     }
