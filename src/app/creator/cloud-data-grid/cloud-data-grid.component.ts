@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Word } from '../cloud/Word';
+import { Fonts } from '../cloud/Fonts';
 
 @Component({
   selector: 'cloud-data-grid',
@@ -8,8 +9,8 @@ import { Word } from '../cloud/Word';
 })
 export class CloudDataGridComponent implements OnInit {
 
-  isAvailable = true;
-
+  private isAvailable = true;
+  private fonts = Fonts.FontsList;
   private isRotated(degrees:string):boolean{
     if(Number(degrees)>0){
       return true;
