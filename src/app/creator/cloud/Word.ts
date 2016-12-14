@@ -1,4 +1,6 @@
 import { Point } from './Point';
+import { Fonts } from './Fonts';
+
 export class Word {
 
     public size:number;
@@ -9,14 +11,17 @@ export class Word {
     public isRotated:boolean;
     public degrees:number;
 
-    constructor(text:string,size:number) {
+    constructor(text:string) {
         this.text = text;
-        this.size = Math.floor(size * 0.9);
-        this.color = this.setRandomColor();
-        this.font = this.getRandomFont();
+        this.size = this.getRandomSize();
+        this.color = this.getRandomColor();
+        this.font = Fonts.getRandomFont();
+    }
+    private getRandomSize(){
+        return Math.floor(Math.random() * 70+10);
     }
 
-    private setRandomColor() {
+    private getRandomColor() {
         var letters = '012345'.split('');
         var color = '#';        
         color += letters[Math.round(Math.random() * 5)];
@@ -26,11 +31,5 @@ export class Word {
         }
         return color;
     }
-
-    private getRandomFont(){
-        let fontType = [ "Arial", "Verdana", "Helvetica","Calibri","Open Sans", "Abril Fatface","Old Standard TT"];
-        return fontType[Math.floor(Math.random()*7)];
-    }
-
 
 } 

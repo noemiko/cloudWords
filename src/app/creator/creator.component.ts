@@ -19,7 +19,6 @@ export class CreatorComponent implements OnInit {
   @ViewChild("canvas") canvas: ElementRef; 
   @ViewChild("canvasImage") canvasImage: HTMLImageElement; 
 
-  
   private showInput():void{
     this.ShowInput=!this.ShowInput;
   }

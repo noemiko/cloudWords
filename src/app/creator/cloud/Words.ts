@@ -52,8 +52,7 @@ private getTextStructureWithRandomSizes(text:string):Word[]{
    words = words.filter(value => value.length !== 0);
 
     words.forEach(word=>{
-        let randomSize = Math.floor(Math.random() * 70+10);
-        wordsWithSize.push( new Word(word,randomSize));
+        wordsWithSize.push( new Word(word));
     })
     return wordsWithSize;   
 }

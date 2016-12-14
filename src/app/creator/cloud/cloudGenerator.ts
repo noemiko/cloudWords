@@ -32,7 +32,7 @@ private cleanCanvas(canvas:CanvasRenderingContext2D){
 
 private drawWordOnCanvas (canvas:CanvasRenderingContext2D, coordinates:Rectangle, word:Word ):void{
     canvas.save();  
-    canvas.translate(coordinates.leftUp.x , coordinates.leftUp.y);
+    canvas.translate(coordinates.leftUp.x+5 , coordinates.leftUp.y+5);
     if(word.degrees >0){
         canvas.rotate(word.degrees);
     }
@@ -138,8 +138,8 @@ private getStartedCoordinates(word:Word, ctx:CanvasRenderingContext2D):Rectangle
     var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
     var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
-    let x = pt_x+ 400;
-    let y = pt_y + 300;
+    let x = pt_x+ 300;
+    let y = pt_y + 200;
 
     let x2;
     let y2;
