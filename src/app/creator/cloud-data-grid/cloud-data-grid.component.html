@@ -9,10 +9,23 @@
         <tbody>
             <tr *ngFor="let i of data">
                 <td>{{i.text}}</td>
-                <td>{{i.size}}</td>
-                <td>{{i.color}}</td>
-                <td>{{i.font}}</td>
-                <td>{{i.degrees}}</td>
+                <td><input type="number" [(ngModel)]="i.size" ></td>
+                <td><input type="color" name="favcolor" [(ngModel)]="i.color"></td>
+                <td>
+                    <select class="form-control">
+                        <option [ngStyle]="{'font-family': i.font}">{{i.font}}</option>
+                        <option value="two">Two</option>
+                        <option value="three">Three</option>
+                        <option value="four">Four</option>
+                        <option value="five">Five</option>
+                    </select>
+                </td>
+                <td>
+                    <div class="checkbox">
+                        <label> <input type="checkbox" [checked]="isRotated()" (change)="isAvailable = $event.target.checked"></label>
+                        </div>
+                    
+                    </td>
             </tr>
         </tbody>
     </table>

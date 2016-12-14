@@ -28,8 +28,8 @@ export class Word {
     }
 
     private getRandomFont(){
-        let fontType = [ "Arial", "Verdana", "Helvetica","Calibri"];
-        return fontType[Math.floor(Math.random()*4)];
+        let fontType = [ "Arial", "Verdana", "Helvetica","Calibri","Open Sans", "Abril Fatface","Old Standard TT"];
+        return fontType[Math.floor(Math.random()*7)];
     }
 
 

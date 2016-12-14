@@ -7,6 +7,15 @@ import { Word } from '../cloud/Word';
   styleUrls: ['./cloud-data-grid.component.css']
 })
 export class CloudDataGridComponent implements OnInit {
+
+  isAvailable = true;
+
+  private isRotated(degrees:string):boolean{
+    if(Number(degrees)>0){
+      return true;
+    }
+    return false;
+  }
 @Input() data:Word[];
   constructor() { }
 

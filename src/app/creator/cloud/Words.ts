@@ -5,24 +5,29 @@ export class Words {
     private text:string;
     private words:Word[]
 
-    constructor() {
+constructor() {
        
     }
-    public generateStructure(text:string){
+public generateStructure(text:string){
          this.words = this.setTextStructure(text);
     }
-    public getTextStructure():Word[]{
+public getTextStructure():Word[]{
         return this.words;
     }
 
 private setTextStructure(text:string):Word[]{
+    text = this.cleanText(text);
     let textStructure:Word[];
-    if (this.isTextCsv(text)){
-          textStructure = this.getTextStructureWithSpecifiedSizes(text);
-     }else{
-         textStructure = this.getTextStructureWithRandomSizes(text)
-     }
-     return this.setIsWordRotated(textStructure);
+    
+    textStructure = this.getTextStructureWithRandomSizes(text)
+    
+    return this.setIsWordRotated(textStructure);
+}
+
+private cleanText(text:string):string{
+    text = text.replace (/,/g, "");
+    text = text.replace (/\r?\n|\r/, "");
+    return text;
 }
 
 private setIsWordRotated(textStructure:Word[]):Word[]{
@@ -38,21 +43,6 @@ private setIsWordRotated(textStructure:Word[]):Word[]{
         isRotate =! isRotate;
     })
     return textStructure;
-}
-
-private isTextCsv(text){
-    return text.indexOf(',') !== -1;
-}
-
-private getTextStructureWithSpecifiedSizes(text:string):Word[]{
-    let wordsWithSize:Word[] = []
-    let textRows:any[] = text.split('\n');
-
-     textRows.forEach(wordRow =>{
-       let wordWithSize = wordRow.split(',');
-      wordsWithSize.push( new Word(wordWithSize[0],Number(wordWithSize[1])));
-    })
-    return wordsWithSize;
 }
 
 private getTextStructureWithRandomSizes(text:string):Word[]{

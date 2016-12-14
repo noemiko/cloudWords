@@ -44,7 +44,6 @@ export class CreatorComponent implements OnInit {
   ngOnInit() {
  this.canvaCloud = this.canvas.nativeElement.getContext("2d");
  //this.canvaCloud.scale(0.5,0.5);
-
   }
 
 }
