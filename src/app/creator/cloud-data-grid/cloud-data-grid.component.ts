@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, ViewChild } from '@angular/core';
 import { Word } from '../cloud/Word';
 import { Fonts } from '../cloud/Fonts';
 
@@ -8,6 +8,7 @@ import { Fonts } from '../cloud/Fonts';
   styleUrls: ['./cloud-data-grid.component.css']
 })
 export class CloudDataGridComponent implements OnInit {
+@ViewChild("form") form: any;
 
   private isAvailable = true;
   private fonts = Fonts.FontsList;
@@ -21,6 +22,7 @@ export class CloudDataGridComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    console.log(this.data)
   }
 
 }

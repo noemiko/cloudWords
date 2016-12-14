@@ -1,29 +1,31 @@
 <table>
         <thead>
+            <th>Id</th>
             <th>Text</th>
             <th>Size</th>
             <th>Color</th>
             <th>Font</th>
             <th>Rotation</th>
         </thead>
-        <tbody>
+        <tbody >
+          <form #form="ngForm" (ngSubmit)="onSubmit()">
             <tr *ngFor="let i of data">
+                <td>{{i.id}}</td>
                 <td>{{i.text}}</td>
-                <td><input type="number" [(ngModel)]="i.size" ></td>
-                <td><input type="color" name="favcolor" [(ngModel)]="i.color"></td>
+                <td><input type="number" [(ngModel)]="data[i.id].size" [ngModelOptions]="{standalone: true}" ></td>
+                <td><input type="color" name="favcolor" [(ngModel)]="data[i.id].color" [ngModelOptions]="{standalone: true}"></td>
                 <td>
-                    <select class="form-control">
+                    <select class="form-control" [(ngModel)]="data[i.id].font" [ngModelOptions]="{standalone: true}">
                         <option [ngStyle]="{'font-family': i.font}">{{i.font}}</option>
-                        
                         <option *ngFor="let font of fonts" [ngStyle]="{'font-family': font}">{{font}}</option>
                     </select>
                 </td>
                 <td>
                     <div class="checkbox">
-                        <label> <input type="checkbox" [checked]="isRotated()" (change)="isAvailable = $event.target.checked"></label>
-                        </div>
-                    
-                    </td>
+                        <label> <input type="checkbox" [checked]="isRotated(i.degrees)" [(ngModel)]="data[i.id].degrees" [ngModelOptions]="{standalone: true}"></label>
+                    </div>
+                </td>
             </tr>
+          </form>
         </tbody>
     </table>

@@ -7,7 +7,9 @@ import { CloudService } from './../cloud-service.service';
   <div class="form-horizontal">
   <div class="form-group">
     <div class="col-md-12">
-      <textarea [(ngModel)]="textData" class="form-control" rows="5" placeholder="{{placeHolder}}" (ngModelChange)="onChange($event)"></textarea>
+      <textarea [(ngModel)]="textData" class="form-control" 
+      rows="5" placeholder="{{placeHolder}}" 
+      (ngModelChange)="onChange($event)"></textarea>
       </div>
    </div>
 </div>`,

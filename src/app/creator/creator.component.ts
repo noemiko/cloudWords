@@ -10,7 +10,8 @@ import { Word } from './cloud/Word';
 })
 export class CreatorComponent implements OnInit {
   private canvaCloud: CanvasRenderingContext2D;
-  private textToManipulate:string;
+  private textToManipulate:string;//output from text input
+  private textAfterUserModifications:string;
   private canvasUrl = '' ;
   private words:Words = new Words()
   private ShowInput:boolean = false;

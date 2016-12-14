@@ -21,7 +21,7 @@ private setTextStructure(text:string):Word[]{
     
     textStructure = this.getTextStructureWithRandomSizes(text)
     
-    return this.setIsWordRotated(textStructure);
+    return this.setIsWordRotatedAndNumber(textStructure);
 }
 
 private cleanText(text:string):string{
@@ -30,10 +30,12 @@ private cleanText(text:string):string{
     return text;
 }
 
-private setIsWordRotated(textStructure:Word[]):Word[]{
-    let isRotate = false;
+private setIsWordRotatedAndNumber(textStructure:Word[]):Word[]{
+    let isRotate:boolean = false;
+    let counter:number = 0
     textStructure.forEach(word=>{
         word.isRotated= isRotate;
+        word.id = counter;
         if( isRotate){
              word.degrees = 90 * (Math.PI / 180);
         }else{
@@ -41,6 +43,7 @@ private setIsWordRotated(textStructure:Word[]):Word[]{
         }
        
         isRotate =! isRotate;
+        counter+=1;
     })
     return textStructure;
 }

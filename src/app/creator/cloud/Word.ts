@@ -2,7 +2,7 @@ import { Point } from './Point';
 import { Fonts } from './Fonts';
 
 export class Word {
-
+    public id:number;
     public size:number;
     public text:string;
     public color: string;
