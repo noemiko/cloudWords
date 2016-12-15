@@ -17,8 +17,10 @@ export class CreatorComponent implements OnInit {
   private ShowInput:boolean = false;
   private ShowDataGrid:boolean = false;
   private textStructure:Word[];
+  
   @ViewChild("canvas") canvas: ElementRef; 
   @ViewChild("canvasImage") canvasImage: HTMLImageElement; 
+  @ViewChild("dataGrid") dataGrid: any; 
 
   private showInput():void{
     this.ShowInput=!this.ShowInput;
@@ -29,8 +31,9 @@ export class CreatorComponent implements OnInit {
   }
 
   private generateCloud():void{
-   let cloud = new CloudGenerator(this.words.getTextStructure(), this.canvaCloud);
+   let cloud = new CloudGenerator(this.textStructure, this.canvaCloud);
    this.canvasUrl = cloud.getImageUri();
+   console.log();
   }
   constructor() { 
   }

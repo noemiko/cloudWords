@@ -7,7 +7,7 @@
         </div>
       <button type="button" class="btn btn-default btn-block" (click)="showDataGrid()">Text Options</button>
         <div *ngIf="ShowDataGrid">
-           <cloud-data-grid [data]="textStructure" ></cloud-data-grid>
+           <cloud-data-grid #dataGrid [data]="textStructure" (textToManipulate) = "setTextToManipulate($event)" ></cloud-data-grid>
         </div>
       <button type="button" class="btn btn-primary btn-block" (click)="generateCloud()">Generate Own Cloud</button>
       

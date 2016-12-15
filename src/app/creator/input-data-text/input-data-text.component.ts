@@ -16,14 +16,10 @@ import { CloudService } from './../cloud-service.service';
   styleUrls: ['./input-data-text.component.css']
 })
 export class InputDataTextComponent implements OnInit {
-@Input() textData:string;
+@Input() textData:string = "test test tes"
 @Output() textToManipulate = new EventEmitter();
 
-  private placeHolder = `Paste text using csv format if you want specify size:
-'word,20
-word,10'
-Other way input just text:
-'Lorem ipsum lorem'`;
+  private placeHolder = `Paste text here`;
 
   constructor(private cloudService:CloudService ) { 
    
