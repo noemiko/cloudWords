@@ -11,6 +11,7 @@ import { CreatorComponent } from './creator/creator.component';
 import { InputDataTextComponent } from './creator/input-data-text/input-data-text.component';
 import { CloudService } from './creator/cloud-service.service';
 import { CloudDataGridComponent } from './creator/cloud-data-grid/cloud-data-grid.component';
+import { routing } from './app.routing';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { CloudDataGridComponent } from './creator/cloud-data-grid/cloud-data-gri
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    routing
   ],
   providers: [CloudService],
   bootstrap: [AppComponent]
