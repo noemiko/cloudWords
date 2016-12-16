@@ -12,6 +12,7 @@ import { InputDataTextComponent } from './creator/input-data-text/input-data-tex
 import { CloudService } from './creator/cloud-service.service';
 import { CloudDataGridComponent } from './creator/cloud-data-grid/cloud-data-grid.component';
 import { routing } from './app.routing';
+import { GalleryComponent } from './gallery/gallery.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { routing } from './app.routing';
     FooterComponent,
     CreatorComponent,
     InputDataTextComponent,
-    CloudDataGridComponent
+    CloudDataGridComponent,
+    GalleryComponent
   ],
   imports: [
     BrowserModule,
