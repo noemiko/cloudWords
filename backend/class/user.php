@@ -42,11 +42,13 @@ class User
         $token = "token";
         $os = $device -> getOs();
         $browser = $device->getBrowser();
+        $isMobile =  $device -> isMobile();
+        $aktywne = 0;
 		try
 		{
 			
-			$stmt = $this->conn->prepare("INSERT INTO Uzytkownicy(`login`, `password`, `mail`, `date_login`, `date_register`, `lon`, `lat`, `token`,  `hash`, 'os', 'browser') 
-		                                               VALUES(:uname, :password, :umail, :date_login, :date_register, :lat, :lon,  :token, :hash, :os, :browser)");
+			$stmt = $this->conn->prepare("INSERT INTO `Uzytkownicy`(`login`, `password`, `mail`, `date_login`, `date_register`, `lon`, `lat`, `device`, `token`, `aktywne`, `hash`, `browser`, `System`)  
+            VALUES(:uname, :password, :umail, :date_login, :date_register, :lon, :lat, :device, :token, :aktywne, :hash, :browser, :System);");
 												  
 			$stmt->bindparam(":uname", $uname);
 			$stmt->bindparam(":password", $password);
@@ -57,8 +59,12 @@ class User
             $stmt->bindparam(":lon", $lon);
 			$stmt->bindparam(":token", $token);
             $stmt->bindparam(":hash", $hash);
-            $stmt->bindparam(":os", $os);
-            $stmt->bindparam(":browser", $browser);
+            $stmt->bindparam(":System", $os);
+    		$stmt->bindparam(":browser", $browser);
+            $stmt->bindparam(":device", $isMobile);
+            $stmt->bindparam(":aktywne", $aktywne);
+
+
 	
 			$stmt->execute();
             
@@ -131,6 +137,7 @@ class User
     
     public function changePassword($password, $umail, $hash){
         if ($this->chcekHash($umail, $hash) == true){
+           
             if($this->chcekBeforePassword($password, $umail, $hash) == true){
                 try{
                      $stmt = $this->conn->prepare("UPDATE `Uzytkownicy` SET `password` = :password, `hash` = '' WHERE `Uzytkownicy`.mail = :umail and `Uzytkownicy`.hash = :hash ");
@@ -143,11 +150,32 @@ class User
         			echo json_encode(array('error' => true, 'message' => $e->getMessage()));
         		}
             }else{
-                echo json_encode(array('error' => true, 'message' => 'Haslo musi byc inne niz wczesniej używane.'));
+                echo json_encode(array('error' => true, 'message' =>'Haslo musi byc inne niz wczesniej używane.'));
             }
         }else{
-			echo json_encode(array('error' => true, 'message' => 'Link zostal wykozystany')); ;
+             echo json_encode(array('error' => true, 'message' =>'Link zostal wykozystany'));
         }
+    }
+    
+    public function changePasswordLogin($password, $currentPassword){
+         $stmt = $this->conn->prepare("SELECT count(*) as count FROM Uzytkownicy WHERE  id=:id and password:password ");
+        	$nRows = $stmt->execute(array(':id'=>$_SESSION['sesion_id'], ':password'=>$currentPassword));
+			$nRows=$stmt->fetch(PDO::FETCH_ASSOC);
+			if($nRows["count"] == 1){  
+                        try{
+                             $stmt = $this->conn->prepare("UPDATE `Uzytkownicy` SET password=:password WHERE Uzytkownicy.id = :id ");
+			                        $stmt->bindparam(":password", $password);
+                        			$stmt->bindparam(":id", $_SESSION['sesion_id']);
+                            $stmt->execute();
+                            echo json_encode(array('error' => false, 'message' => 'haslo zostalo zmienione'));
+                        } 
+                        catch(PDOException $e)
+                        {
+                    		echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+                		}
+                    }else{
+                        echo json_encode(array('error' => true, 'message' => 'Błędne obecnie używane hasło'));
+                    }
     }
     
     private function checkMail($umail){
@@ -174,14 +202,14 @@ class User
                 $stmt->execute(array(':hash'=>$hash, ':umail'=>$umail));
                 
                 $this->sendMailToUser($umail, $hash, 0);
-				echo json_encode(array('error' => true, 'message' => 'Mail zweryfikowany'));
+                echo json_encode(array('error' => true, 'message' => 'Mail zweryfikowany'));
             }
             catch(PDOException $e)
     	    {
 			    echo json_encode(array('error' => true, 'message' => $e->getMessage()));
 		    }
         }else{
-			echo json_encode(array('error' => true, 'message' => 'brak maila w bazie.'));    
+             echo json_encode(array('error' => true, 'message' => 'Brak maila w bazie.')); 
         }
     }
 	
@@ -206,8 +234,9 @@ class User
                     $token = md5(filter_var(trim($time), FILTER_SANITIZE_STRING));
                      $os = $device->getOs();
                     $browser = $device->getBrowser();
-                    $stmt = $this->conn->prepare("UPDATE Uzytkownicy SET  lon=:lon, lat=:lat, date_login=:date_login, token=:token WHERE login=:uname OR mail=:umail ");
-                    $urow = $stmt->execute(array(':uname'=>$uname, ':umail'=>$uname, ':date_login'=>$date,':lat'=>$lat, ':lon'=>$lon, ':token'=>$token ));
+                    $devceType = $device->isMobile();
+                    $stmt = $this->conn->prepare("UPDATE Uzytkownicy SET  lon=:lon, lat=:lat, date_login=:date_login, token=:token, browser=:browser WHERE login=:uname OR mail=:umail ");
+                    $urow = $stmt->execute(array(':uname'=>$uname, ':umail'=>$uname, ':date_login'=>$date,':lat'=>$lat, ':lon'=>$lon, ':token'=>$token, ':browser'=>$browser ));
 
 					$_SESSION['user_session'] = $token;
                     $_SESSION['sesion_id'] = $row['id'];
@@ -232,18 +261,31 @@ class User
     public function verifiToken(){
          $session = new Session();
          try{
-            //$stmt = $this->conn->prepare("SELECT id,  login, mail, token  FROM Uzytkownicy WHERE login=:uname OR mail=:umail ");
-            $stmt = $this->conn->prepare("SELECT count(*) as count FROM Uzytkownicy WHERE token=:token and id=:id ");
-    		$nRows = $stmt->execute(array(':token'=>$row['token'], ':id'=>$_SESSION['sesion_id']));
+            $stmt = $this->conn->prepare("SELECT count(*) as count FROM Uzytkownicy WHERE id=:id");
+    		$nRows = $stmt->execute(array(':id'=>$_SESSION['sesion_id']));
 			$nRows=$stmt->fetch(PDO::FETCH_ASSOC);
 			if($nRows["count"] == 1)
 			{
-                return true;
+                
+                $stmt = $this->conn->prepare("SELECT token FROM Uzytkownicy WHERE id=:id");
+                $nRows = $stmt->execute(array(':id'=>$_SESSION['sesion_id']));
+			    $nRows=$stmt->fetch(PDO::FETCH_ASSOC);
+
+                if(strcmp($_SESSION['user_session'], $nRows['token']) === 0){
+                    return true;
+                }else{
+                    if ($this->doLogout() == true){
+                        echo json_encode(array('error' => true, 'message' =>  "Zostałeś wylogowany, twoja sesja się skończyła, zaloguj się ponownie"));
+                        return false;
+                        
+                    }
+                }
 			}else{
+
                 if ($this->doLogout() == true){
-					 echo json_encode(array('error' => true, 'message' =>  "Zostałeś wylogowany, twoja sesja się skończyła, zaloguj się ponownie"));
+                    echo json_encode(array('error' => true, 'message' =>  "Zostałeś wylogowany, twoja sesja się skończyła, zaloguj się ponownie1"));
                     return false;
-                   
+                    
                 }
             }
          }

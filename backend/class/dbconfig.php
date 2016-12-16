@@ -1,10 +1,10 @@
 <?php
 class Database
 {
-    private $mysql_host = 'mysql.cba.pl';
-    private $username = 'canero';
-    private $password = 'nowehaslo';
-    private $database = 'canero_c0_pl'; 
+    private $mysql_host = '';
+    private $username = '';
+    private $password = '';
+    private $database = ''; 
     public $conn;
     
     public function dbConnection(){
@@ -15,7 +15,6 @@ class Database
     	    echo 'Połączenie nawiązane!';
             return $conn;
            if ($conn){
-               echo 'test';
            }
         }catch(PDOException $e){
     	    echo 'Połączenie nie mogło zostać utworzone: ' .$e->getMessage();;
