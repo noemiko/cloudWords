@@ -143,10 +143,10 @@ class User
         			echo json_encode(array('error' => true, 'message' => $e->getMessage()));
         		}
             }else{
-                echo 'Haslo musi byc inne niz wczesniej używane.';
+                echo json_encode(array('error' => true, 'message' => 'Haslo musi byc inne niz wczesniej używane.'));
             }
         }else{
-            echo 'Link zostal wykozystany';
+			echo json_encode(array('error' => true, 'message' => 'Link zostal wykozystany')); ;
         }
     }
     
@@ -174,14 +174,14 @@ class User
                 $stmt->execute(array(':hash'=>$hash, ':umail'=>$umail));
                 
                 $this->sendMailToUser($umail, $hash, 0);
-                echo 'Mail zweryfikowany';
+				echo json_encode(array('error' => true, 'message' => 'Mail zweryfikowany'));
             }
             catch(PDOException $e)
     	    {
 			    echo json_encode(array('error' => true, 'message' => $e->getMessage()));
 		    }
         }else{
-            echo 'brak maila w bazie.';     
+			echo json_encode(array('error' => true, 'message' => 'brak maila w bazie.'));    
         }
     }
 	
@@ -206,7 +206,6 @@ class User
                     $token = md5(filter_var(trim($time), FILTER_SANITIZE_STRING));
                      $os = $device->getOs();
                     $browser = $device->getBrowser();
-                    echo $browser;
                     $stmt = $this->conn->prepare("UPDATE Uzytkownicy SET  lon=:lon, lat=:lat, date_login=:date_login, token=:token WHERE login=:uname OR mail=:umail ");
                     $urow = $stmt->execute(array(':uname'=>$uname, ':umail'=>$uname, ':date_login'=>$date,':lat'=>$lat, ':lon'=>$lon, ':token'=>$token ));
 
