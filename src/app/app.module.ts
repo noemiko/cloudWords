@@ -13,6 +13,7 @@ import { CloudService } from './creator/cloud-service.service';
 import { CloudDataGridComponent } from './creator/cloud-data-grid/cloud-data-grid.component';
 import { routing } from './app.routing';
 import { GalleryComponent } from './gallery/gallery.component';
+import { RegisterComponent } from './User/register/register.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { GalleryComponent } from './gallery/gallery.component';
     CreatorComponent,
     InputDataTextComponent,
     CloudDataGridComponent,
-    GalleryComponent
+    GalleryComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
