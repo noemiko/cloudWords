@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 16 Gru 2016, 16:08
+-- Czas generowania: 18 Gru 2016, 16:38
 -- Wersja serwera: 10.0.28-MariaDB-1.cba
 -- Wersja PHP: 7.0.14
 
@@ -40,12 +40,8 @@ CREATE TABLE `Uzytkownicy` (
   `aktywne` tinyint(1) NOT NULL DEFAULT '0',
   `hash` varchar(100) COLLATE utf8_bin NOT NULL,
   `browser` varchar(30) COLLATE utf8_bin DEFAULT NULL,
-  `os` varchar(30) COLLATE utf8_bin DEFAULT NULL
+  `System` varchar(30) COLLATE utf8_bin DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Zrzut danych tabeli `Uzytkownicy`
---
 
 --
 -- Indeksy dla zrzutów tabel
@@ -67,7 +63,7 @@ ALTER TABLE `Uzytkownicy`
 -- AUTO_INCREMENT dla tabeli `Uzytkownicy`
 --
 ALTER TABLE `Uzytkownicy`
-  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(6) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
