@@ -204,7 +204,6 @@ class User
                 $stmt->execute(array(':hash'=>$hash, ':umail'=>$umail));
                 
                 $this->sendMailToUser($umail, $hash, 0);
-                echo json_encode(array('error' => true, 'message' => 'Mail zweryfikowany'));
             }
             catch(PDOException $e)
     	    {
