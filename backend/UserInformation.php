@@ -1,5 +1,5 @@
 <?php
-    require_once('user.php');
+    require_once('calss/user.php');
     $user = new USER();
     if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         session_start();
