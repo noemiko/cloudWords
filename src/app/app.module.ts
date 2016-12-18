@@ -15,6 +15,8 @@ import { routing } from './app.routing';
 import { UserGalleryComponent } from './Image/gallery/gallery.component';
 import { RegisterComponent } from './User/register/register.component';
 import { LoginComponent } from './User/login/login.component';
+import { PassChangeComponent } from './User/user-profile/pass-change.component';
+import { ResetPasswordComponent } from './User/reset-password/reset-password.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { LoginComponent } from './User/login/login.component';
     CloudDataGridComponent,
     UserGalleryComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    PassChangeComponent,
+    ResetPasswordComponent
   ],
   imports: [
     BrowserModule,

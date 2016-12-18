@@ -10,6 +10,9 @@ export class UserService {
  
  private _registerUrl = 'http://localhost/cloudWords/backend/register.php';
  private _logInUrl = 'http://localhost/cloudWords/backend/login.php';
+ private _changePassUrl = 'http://localhost/cloudWords/backend/chagnePasswordWhenLogedIn.php';
+ private _resetPass = 'http://localhost/cloudWords/backend/verifymail.php';
+ private _changePassByHashUrl = 'http://localhost/cloudWords/backend/changePassworByMail.php';
 
   add(user:User): Observable<string>{
     let body = `login=${user.Login}&mail=${user.Mail}&password=${user.Password}&password2=${user.Password2}`;
@@ -25,6 +28,36 @@ export class UserService {
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
         return this._http.post(this._logInUrl, body, options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
+
+    changePasswordWhenLogged(input:any) {
+    let body = `currentPassword=${input.currentPassword}&password1=${input.password1}&password2=${input.password2}`;
+    console.log(body)
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+        return this._http.post(this._changePassUrl, body, options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
+
+    resetPassword(input:any) {
+    let body = `mail=${input.mail}`;
+    console.log(body)
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+        return this._http.post(this._resetPass, body, options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
+
+    changePasswordByHash(input:any) {
+    let body = `mail=${input.email}&password1=${input.password1}&password2=${input.password2}&hash=${input.hash}`;
+    console.log(body)
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+        return this._http.post(this._changePassByHashUrl, body, options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
