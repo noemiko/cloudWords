@@ -1,5 +1,5 @@
 <?php
-    require_once('User/user.php');
+    require_once('class/user.php');
     $user = new User();
 if ($_SERVER['REQUEST_METHOD'] == 'POST')
 {
