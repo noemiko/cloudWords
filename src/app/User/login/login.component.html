@@ -1,0 +1,36 @@
+<div class="container">
+        <div class="row centered-form">
+        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+        	<div class="panel panel-default">
+        		<div class="panel-heading">
+			    		<h3 class="panel-title">Register</h3>
+			 			</div>
+			 			<div class="panel-body">
+			    		<form role="form" (ngSubmit)="logIn($event)">
+			    		<div>
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+									{{error}}
+			    					<div class="form-group">
+			                <input type="text" [(ngModel)]="input.login" name="login" class="form-control input-sm" placeholder="Login" >
+			    					</div>
+			    				</div>
+			    			</div>
+
+			    			<div class="row">
+			    				<div class="col-xs-6 col-sm-6 col-md-6">
+			    					<div class="form-group">
+			    						<input type="password" [(ngModel)]="input.password" name="password" class="form-control input-sm" placeholder="Password" >
+			    					</div>
+			    				</div>
+			    				</div>
+			    			</div>
+			    			
+			    			<input type="submit" class="btn btn-info btn-block">
+			    		
+			    		</form>
+			    	</div>
+	    		</div>
+    		</div>
+    	</div>
+    </div>

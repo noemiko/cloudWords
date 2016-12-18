@@ -12,13 +12,13 @@ import 'rxjs/Rx';
   providers:[UserService]
 })
 export class RegisterComponent implements OnInit {
-    private input = {login:'',password:'',mail:''};
+    private input = {login:'',password:'',password2:'',mail:''};
     private error:string;
     constructor(private _registerService : UserService) { }
     ngOnInit() { }
  
     register(event) {
-     const user = new User(this.input.login, this.input.mail, this.input.password)
+     const user = new User(this.input.login, this.input.mail, this.input.password, this.input.password2)
      
       this._registerService.add(user).subscribe(
         
@@ -33,7 +33,7 @@ export class RegisterComponent implements OnInit {
         this.error = 'Sprawdz swoją pocztę w celu aktywacji konta'
       }
  
-      if(response.error ==true){
+      if(response.type =='error'){
         this.error = response.message;
       }
     }

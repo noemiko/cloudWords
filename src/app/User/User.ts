@@ -11,11 +11,13 @@ export class User {
     private browser : string;
     private os : string;
     private password : string;
+    private password2 : string;
 
- constructor(login:string,mail:string,password:string) { 
+ constructor(login:string,mail:string,password:string,password2:string) { 
      this.login = login;
      this.mail = mail;
-     this.password = password
+     this.password = password;
+     this.password2 = password2;
      
 }
 
@@ -29,6 +31,10 @@ public get Mail():string{
 
 public get Password():string{
     return this.password;
+}
+
+public get Password2():string{
+    return this.password2;
 }
 
 
