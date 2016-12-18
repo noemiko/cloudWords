@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 16 Gru 2016, 16:10
+-- Czas generowania: 18 Gru 2016, 16:39
 -- Wersja serwera: 10.0.28-MariaDB-1.cba
 -- Wersja PHP: 7.0.14
 
@@ -35,7 +35,6 @@ CREATE TABLE `Image` (
   `name` varchar(30) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-
 --
 -- Indeksy dla zrzutów tabel
 --
@@ -56,7 +55,7 @@ ALTER TABLE `Image`
 -- AUTO_INCREMENT dla tabeli `Image`
 --
 ALTER TABLE `Image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
