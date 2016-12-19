@@ -10,6 +10,8 @@
 			$reuslt=$stmt->fetchAll(PDO::FETCH_ASSOC);
 			if($reuslt){
 				echo  json_encode(array('error' => false, 'message' => $reuslt));
+			}else{
+				echo  json_encode(array('error' => true, 'message' => 'Brak zdjęć'));
 			}
         }
     }
