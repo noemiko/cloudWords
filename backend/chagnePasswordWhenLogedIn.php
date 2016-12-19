@@ -22,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
                         echo json_encode(array('error'=>true, 'message' => 'Hasla nie sa takie same'));
                     }
                 }else{
-                    echo "test";
                 }
                 
         }
