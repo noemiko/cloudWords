@@ -7,6 +7,7 @@ import {RegisterComponent} from "./User/register/register.component";
 import {LoginComponent} from "./User/login/login.component";
 import { PassChangeComponent } from './User/user-profile/pass-change.component';
 import { ResetPasswordComponent } from './User/reset-password/reset-password.component';
+import { LogOutComponent } from './User/log-out/log-out.component';
 
 
 
@@ -19,6 +20,8 @@ const APP_ROUTES: Routes = [
     {path:'changepass', component:PassChangeComponent},
     {path:'resetpass', component:ResetPasswordComponent},
     {path:'changepass/:email/:hash', component:PassChangeComponent},
+    {path:'changepass/:email/:hash', component:PassChangeComponent},
+    {path:'logout', component:LogOutComponent},
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES);

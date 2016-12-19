@@ -13,6 +13,7 @@ export class UserService {
  private _changePassUrl = 'http://localhost/cloudWords/backend/chagnePasswordWhenLogedIn.php';
  private _resetPass = 'http://localhost/cloudWords/backend/verifymail.php';
  private _changePassByHashUrl = 'http://localhost/cloudWords/backend/changePassworByMail.php';
+ private _logOutUrl = 'http://localhost/cloudWords/backend/logout.php';
 
   add(user:User): Observable<string>{
     let body = `login=${user.Login}&mail=${user.Mail}&password=${user.Password}&password2=${user.Password2}`;
@@ -61,6 +62,16 @@ export class UserService {
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
+    logOut() {
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+        return this._http.post(this._logOutUrl,'',options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
+
+
+    
  
   private handleError (error: Response) {
     // in a real world app, we may send the server to some remote logging infrastructure
