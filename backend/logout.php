@@ -1,5 +1,5 @@
    <?php
-    require_once('User/user.php');
+    require_once('calss/user.php');
     session_start();
     session_regenerate_id(true);
     $user = new User();
