@@ -16,17 +16,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'){
         }
     }
 }
-/*f ($_SERVER['REQUEST_METHOD'] == 'GET')
-{
-    if(!isset($_POST["login"]) || !isset($_POST["password"])  ){
-    	$output = json_encode(array('error'=>'error', 'text' => 'Input fields are empty!'));
-		die($output);
-	}
-
-	$uname = filter_var(trim($_POST["login"]), FILTER_SANITIZE_STRING);
-    $user->doLogin($uname, $password);
-    
-
-}*/
-
 ?>	
