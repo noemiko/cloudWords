@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 
     if(!isset($_POST["login"]) || !isset($_POST["mail"]) || !isset($_POST["password"]) || !isset($_POST["password2"]))
         {
-        	$output = json_encode(array('type'=>'error', 'text' => 'Input fields are empty!'));
+        	$output = json_encode(array('error'=> true, 'message' => 'Podaj wszystkie pola'));
     		die($output);
     	}
         
