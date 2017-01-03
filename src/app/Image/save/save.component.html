@@ -1,0 +1,10 @@
+<button type="button" class="btn btn-primary btn-block " (click)="showHideInput()" >Add to gallery</button>
+<div *ngIf="showInput" id="fileName" class="form-group">
+	<input #inputFileName type="text" 
+			name="fileName"
+			class="form-control input-sm" 
+			placeholder="file name" >
+	<button type="button" class="btn btn-primary btn-block " (click)="saveImage()" >Save</button>
+
+</div>
+ 
