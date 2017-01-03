@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { ContentComponent } from './content/content.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './default/header/header.component';
+import { ContentComponent } from './default/content/content.component';
+import { FooterComponent } from './default/footer/footer.component';
 import { CreatorComponent } from './creator/creator.component';
 import { InputDataTextComponent } from './creator/input-data-text/input-data-text.component';
 import { CloudService } from './creator/cloud-service.service';
@@ -18,6 +18,8 @@ import { LoginComponent } from './User/login/login.component';
 import { PassChangeComponent } from './User/user-profile/pass-change.component';
 import { ResetPasswordComponent } from './User/reset-password/reset-password.component';
 import { LogOutComponent } from './User/log-out/log-out.component';
+import { SaveComponent } from './Image/save/save.component';
+import { ShareComponent } from './Image/share/share.component';
 
 
 @NgModule({
@@ -34,7 +36,9 @@ import { LogOutComponent } from './User/log-out/log-out.component';
     LoginComponent,
     PassChangeComponent,
     ResetPasswordComponent,
-    LogOutComponent
+    LogOutComponent,
+    SaveComponent,
+    ShareComponent
   ],
   imports: [
     BrowserModule,
