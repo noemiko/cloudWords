@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
       console.log(response)
       if(response.error ==false){
         this.error = 'Zalogowano';
-        sessionStorage.setItem('user', this.input.login);
+        //sessionStorage.setItem('user', this.input.login);
         this.router.navigateByUrl('gallery');
       }
  
