@@ -377,7 +377,7 @@ class User
        $session = new Session();
        try{
            if ($this->verifiToken() ==  true){
-              $hash = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
+             /* $hash = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
               $date_create = date('Y-m-d H:i:s');
               $stmt = $this->conn->prepare("insert into Image (`hash`, `image`, `id_uzytkownik`, `date_create`, `name`) VALUES(:hash, :image, :id_uzytkownik, :date_create, :name )");
               $stmt->bindparam(":hash", $hash);
@@ -385,8 +385,8 @@ class User
               $stmt->bindparam(":id_uzytkownik", $_SESSION['sesion_id']);
               $stmt->bindparam(":date_create", $date_create);
               $stmt->bindparam(":name", $name);
-              $stmt->execute();
-              echo json_encode(array('error' => false, 'message' => "zdjecie dodane", 'hash' => $hash));
+              $stmt->execute();*/
+              echo json_encode(array('error' => false, 'message' => "Test"));
            }
        }
            catch(PDOException $e)
