@@ -373,5 +373,26 @@ class User
         $user_ip = getenv('REMOTE_ADDR');
         return unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
     }
+    public function saveImage($image, $name){
+       $session = new Session();
+       try{
+           if ($this->verifiToken() ==  true){
+              $hash = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
+              $date_create = date('Y-m-d H:i:s');
+              $stmt = $this->conn->prepare("insert into Image (`hash`, `image`, `id_uzytkownik`, `date_create`, `name`) VALUES(:hash, :image, :id_uzytkownik, :date_create, :name )");
+              $stmt->bindparam(":hash", $hash);
+              $stmt->bindparam(":image", $image);
+              $stmt->bindparam(":id_uzytkownik", $_SESSION['sesion_id']);
+              $stmt->bindparam(":date_create", $date_create);
+              $stmt->bindparam(":name", $name);
+              $stmt->execute();
+              echo json_encode(array('error' => false, 'message' => "zdjecie dodane", 'hash' => $hash));
+           }
+       }
+           catch(PDOException $e)
+       {
+	   echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+	}
+    }
 }
 ?>			
