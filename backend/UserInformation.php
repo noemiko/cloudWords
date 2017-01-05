@@ -9,7 +9,7 @@
             $stmt->execute();
             $reuslt=$stmt->fetch(PDO::FETCH_ASSOC);
             if($reuslt){
-                $stmth = $user->runQuery("select id, id_uzytkownik, image, name, date_create from Image where id_uzytkownik=:id");
+                $stmth = $user->runQuery("select id, id_uzytkownik, image, name, date_create, hash from Image where id_uzytkownik=:id");
                 $stmth->bindparam(":id",  $_SESSION['sesion_id']);
                 $stmth->execute();
                 $reuslth=$stmth->fetchAll(PDO::FETCH_ASSOC);
