@@ -214,17 +214,20 @@ class User
         }
     }
 	
-	public function doLogin($uname,$password)
+		public function doLogin($uname,$password)
 	{
 		try
 		{
-            $stmt = $this->conn->prepare("SELECT id,  login, mail, password FROM Uzytkownicy WHERE login=:uname OR mail=:umail ");
+            $stmt = $this->conn->prepare("SELECT id,  login, mail, password, aktywne FROM Uzytkownicy WHERE login=:uname OR mail=:umail ");
 			$stmt->execute(array(':uname'=>$uname, ':umail'=>$uname));
 			$row=$stmt->fetch(PDO::FETCH_ASSOC);
+            $aktywne = 1;
 			if($stmt->rowCount() == 1)
 			{
 				if(strcmp($password, $row['password']) === 0)
 				{
+                    if(strcmp($aktywne, $row['aktywne']) === 0)
+                    {                    
                     $device = new Device();
                     $session = new Session();
                     $data = $session::getInstance();
@@ -238,11 +241,14 @@ class User
                     $devceType = $device->isMobile();
                     $stmt = $this->conn->prepare("UPDATE Uzytkownicy SET  lon=:lon, lat=:lat, date_login=:date_login, token=:token, browser=:browser WHERE login=:uname OR mail=:umail ");
                     $urow = $stmt->execute(array(':uname'=>$uname, ':umail'=>$uname, ':date_login'=>$date,':lat'=>$lat, ':lon'=>$lon, ':token'=>$token, ':browser'=>$browser ));
-
 					$_SESSION['user_session'] = $token;
                     $_SESSION['sesion_id'] = $row['id'];
                     echo json_encode(array('error' => false, 'message' =>  "zostales zalogowany"));
 					return true;
+                    }else{
+                       echo json_encode(array('error' => true, 'message' =>  "aktywuj konto"));
+    				    return false; 
+                    }
 				}
 				else
 				{
