@@ -20,6 +20,7 @@ session_start();
             $stmt->bindparam(":date_create", $date_create);
             $stmt->bindparam(":name", $name);
             $stmt->execute();
+            
             echo json_encode(array('error' => false, 'message' => "zdjecie dodane", 'hash' => $hash));
         }
     }
