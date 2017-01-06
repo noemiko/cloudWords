@@ -243,7 +243,7 @@ class User
                     $urow = $stmt->execute(array(':uname'=>$uname, ':umail'=>$uname, ':date_login'=>$date,':lat'=>$lat, ':lon'=>$lon, ':token'=>$token, ':browser'=>$browser ));
 					$_SESSION['user_session'] = $token;
                     $_SESSION['sesion_id'] = $row['id'];
-                    echo json_encode(array('error' => false, 'message' =>  "zostales zalogowany"));
+                    echo json_encode(array('error' => false, 'message' =>  "zostales zalogowany", 'id' => $row['id']));
 					return true;
                     }else{
                        echo json_encode(array('error' => true, 'message' =>  "aktywuj konto"));
@@ -373,20 +373,79 @@ class User
         $user_ip = getenv('REMOTE_ADDR');
         return unserialize(file_get_contents("http://www.geoplugin.net/php.gp?ip=$user_ip"));
     }
-    public function saveImage($image, $name){
+     public function saveImage($img, $name, $hash){
          $session = new Session();
          try{
              if ($this->verifiToken() ==  true){
-                $hash = bin2hex(mcrypt_create_iv(22, MCRYPT_DEV_URANDOM));
-                $date_create = date('Y-m-d H:i:s');
-                $stmt = $this->conn->prepare("insert into Image (`hash`, `image`, `id_uzytkownik`, `date_create`, `name`) VALUES(:hash, :image, :id_uzytkownik, :date_create, :name )");
-                $stmt->bindparam(":hash", $hash);
-                $stmt->bindparam(":image", $image);
-                $stmt->bindparam(":id_uzytkownik", $_SESSION['sesion_id']);
-                $stmt->bindparam(":date_create", $date_create);
-                $stmt->bindparam(":name", $name);
-                $stmt->execute();
-                echo json_encode(array('error' => false, 'message' => "zdjecie dodane", 'hash' => $hash));
+                $directory = 'img/' . $_SESSION['sesion_id'];
+                if (!file_exists($directory)) {
+                    mkdir($directory, 0777, true);
+                }
+                
+                $img = $_POST['image'];
+    	        $img = str_replace('data:image/png;base64,', '', $img);
+    	        $img = str_replace(' ', '+', $img);
+    	        $data = base64_decode($img);
+    	        $file = $directory . '/' . $hash . '.png';
+    	        $success = file_put_contents($file, $data);
+                
+	            if ($success){
+                    $date_create = date('Y-m-d H:i:s');
+                    $stmt = $this->conn->prepare("insert into Image (`hash`,  `id_uzytkownik`, `date_create`, `name`) VALUES(:hash,  :id_uzytkownik, :date_create, :name )");
+                    $stmt->bindparam(":hash", $hash);
+                    $stmt->bindparam(":id_uzytkownik", $_SESSION['sesion_id']);
+                    $stmt->bindparam(":date_create", $date_create);
+                    $stmt->bindparam(":name", $name);
+                    $stmt->execute();
+                    echo json_encode(array('error' => false, 'message' => "Zdjecie dodane", 'hash' => $hash));
+	            }else{
+                    echo json_encode(array('error' => true, 'message' => "Blad przy dodawaniu zdjecia"));
+                }
+             }
+         }
+         catch(PDOException $e)
+    	{
+			echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+		}
+    }
+    
+    public function removeImage($hash){
+        $session = new Session();
+         try{
+             if ($this->verifiToken() ==  true){
+                // echo $hash;
+                $stmt = $this->conn->prepare("SELECT count(*) as count FROM Image WHERE hash=:hash;");
+    		    $stmt->execute(array(':hash'=>$hash));
+			    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                $temp = 1;
+			    if(strcmp($temp, $row['count']) === 0){
+                    
+    		        $stmt = $this->conn->prepare("select * from Image where id_uzytkownik=:id and hash=:hash");
+                    $stmt->bindparam(":hash", $hash);
+                    $stmt->bindparam(":id", $_SESSION['sesion_id']);
+        	        $stmt->execute();
+    		        $reuslt = $stmt->fetch(PDO::FETCH_ASSOC);
+                    echo $reuslt;
+			        if($stmt->rowCount() == 1){
+                        
+                        $filepath =  'img/' . $_SESSION['sesion_id'] .'/' . $hash . '.png';
+                        if (is_file($filepath))
+                        {
+                            $stmt = $this->conn->prepare("DELETE FROM `Image`where id_uzytkownik=:id and hash=:hash;");
+                            $stmt->bindparam(":hash", $hash);
+                            $stmt->bindparam(":id", $_SESSION['sesion_id']);
+                            $stmt->execute();
+                            unlink($filepath);
+                            echo json_encode(array('error' => false, 'message' => "Zdjecie usuniete"));
+                        }else{
+                            echo json_encode(array('error' => true, 'message' =>"Nie ma tekiego zdjecia"));
+                        }
+                    }else{
+                       echo json_encode(array('error' => true, 'message' =>"To nie jest twoje zdjecie"));  
+                    }
+			    }else{
+    		       echo json_encode(array('error' => true, 'message' =>"Nie ma takiego zdjcia")); 
+			    }
              }
          }
          catch(PDOException $e)
