@@ -3,17 +3,20 @@ require_once('class/user.php');
 $user = new User();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST'){
-    if (isset($_POST['image'])) {
-        $hash = filter_var(trim($_POST["image"]), FILTER_SANITIZE_STRING);
-        $stmt = $user->runQuery("select image from Image where hash=:hash");
+    if(!isset($_POST["hash"])){
+        $output = json_encode(array('error'=>true, 'message' => 'Brak danych'));
+        die($output);
+	}else{
+        $hash = filter_var(trim($_POST["hash"]), FILTER_SANITIZE_STRING);
+        $stmt = $user->runQuery("select id_uzytkownik from Image where hash=:hash");
         $stmt->bindparam(":hash", $hash);
         $stmt->execute();
         $row=$stmt->fetch(PDO::FETCH_ASSOC);
         if($row){
-            if (isset($row['name'])){
-                 echo json_encode(array('error' => false, 'message' =>  $row['image']));
-            }
+            echo json_encode(array('error' => false, 'message' =>  $row['id_uzytkownik'] . '/' .  $hash . '.png', 'id' =>  $row['id_uzytkownik']));
+        }else{
+             echo json_encode(array('error' => true, 'message' =>  'Brak zdjecia'));
         }
-    }
+    }   
 }
 ?>	
