@@ -75,7 +75,7 @@ private isOutOfCanvas(coordinates:Rectangle,ctx:CanvasRenderingContext2D):boolea
         return false;
 }
 public getImageUri(){
-    return this.canvas.canvas.toDataURL();
+    return this.canvas.canvas.toDataURL("image/png", 0.1);
 }
 
 private getNewCoordinatesWhenOccupied(coordinates:Rectangle, word:Word, ctx:CanvasRenderingContext2D){
@@ -138,8 +138,8 @@ private getStartedCoordinates(word:Word, ctx:CanvasRenderingContext2D):Rectangle
     var pt_x = Math.sqrt(pt_radius_sq) * Math.cos(pt_angle);
     var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
-    let x = pt_x+ 300;
-    let y = pt_y + 200;
+    let x = pt_x+ 250;
+    let y = pt_y + 100;
 
     let x2;
     let y2;
@@ -155,6 +155,7 @@ private getStartedCoordinates(word:Word, ctx:CanvasRenderingContext2D):Rectangle
 }
 
 private setTextOptionsOnCanvas(word:Word, ctx:CanvasRenderingContext2D){ 
+    ctx.fillStyle = "rgb(200,0,0)";
     if(word.degrees>0){
         ctx.textAlign = "left";
         ctx.textBaseline = "alphabetic";

@@ -20,7 +20,8 @@ import { ResetPasswordComponent } from './User/reset-password/reset-password.com
 import { LogOutComponent } from './User/log-out/log-out.component';
 import { SaveComponent } from './Image/save/save.component';
 import { ShareComponent } from './Image/share/share.component';
-
+import {SafePipe} from './safeHelper';
+import { DownloadCanvasComponent } from './Image/download-canvas/download-canvas.component'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,9 @@ import { ShareComponent } from './Image/share/share.component';
     ResetPasswordComponent,
     LogOutComponent,
     SaveComponent,
-    ShareComponent
+    ShareComponent,
+    SafePipe,
+    DownloadCanvasComponent
   ],
   imports: [
     BrowserModule,

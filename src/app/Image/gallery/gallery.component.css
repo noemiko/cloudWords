@@ -1,13 +1,25 @@
-.hide-bullets {
-    list-style:none;
-    margin-left: -40px;
-    margin-top:20px;
-}
-
 .thumbnail {
     padding: 0;
+    margin-bottom: 0;
+    margin-top:10px;
+    border-radius:25px;
 }
 
-.carousel-inner>.item>img, .carousel-inner>.item>a>img {
-    width: 100%;
+.name{
+        border-radius: 25px;
+    border: 2px solid #a0bcc5;
+    padding: 4px;
+    background: #d3d3f7;
+    text-align: center;
+
+}
+    
+.panel{
+     position: absolute;
+    display: none;
+ 
+}
+
+.image-square:hover .panel{
+      display: block;
 }

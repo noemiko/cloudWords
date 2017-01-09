@@ -13,13 +13,15 @@ import {Router} from '@angular/router'
 export class LogOutComponent implements OnInit {
     private input = {login:'',password:''};
     private error:string;
-    constructor(private _registerService : UserService, private router: Router) { }
-    ngOnInit() { }
+    constructor(private _userService : UserService, private router: Router) {
+
+     }
+    ngOnInit() { 
+      this.logOut()
+    }
  
     logOut() {
-     //const user = new User(this.input.login, this.input.mail, this.input.password)
-     
-      this._registerService.logOut().subscribe(
+      this._userService.logOut().subscribe(
         response => this.handleResponse(response),
         error => this.handleResponse(error)
       );

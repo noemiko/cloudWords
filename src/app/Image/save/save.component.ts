@@ -15,7 +15,7 @@ import 'rxjs/Rx';
 })
 export class SaveComponent implements OnInit {
     @Input() imageUrl='';
-    @ViewChild('inputFileName') input:HTMLInputElement;
+    @ViewChild('inputFileName') input:any;
     private showInput:boolean = false;
     private info:string;
 
@@ -28,7 +28,7 @@ export class SaveComponent implements OnInit {
 
     private saveImage():void {
       const image = new Image();
-      image.name = this.input.value || this.getRandomFileName() ;
+      image.name = this.getFileName();
       image.url = this.imageUrl;
       
       this._imageService.save(image).subscribe(
@@ -38,13 +38,21 @@ export class SaveComponent implements OnInit {
       );
     }
 
+    private getFileName(){
+
+      if (this.input.nativeElement.value===""){
+        return this.getRandomFileName()
+      }
+      else return this.input.nativeElement.value;
+    }
+
     private getRandomFileName(){
       let n = Math.random()*1e17;
       return (n+"").substr(1,16);
     }
  
     private handleResponse(response){
-
+      console.log(response)
       if(response.error ==false){
         console.log(response)
       }

@@ -20,7 +20,6 @@ const APP_ROUTES: Routes = [
     {path:'changepass', component:PassChangeComponent},
     {path:'resetpass', component:ResetPasswordComponent},
     {path:'changepass/:email/:hash', component:PassChangeComponent},
-    {path:'changepass/:email/:hash', component:PassChangeComponent},
     {path:'logout', component:LogOutComponent},
 ];
 

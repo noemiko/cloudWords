@@ -18,7 +18,7 @@ export class Word {
         this.font = Fonts.getRandomFont();
     }
     private getRandomSize(){
-        return Math.floor(Math.random() * 70+10);
+        return Math.floor(Math.random() * 30+10);
     }
 
     private getRandomColor() {

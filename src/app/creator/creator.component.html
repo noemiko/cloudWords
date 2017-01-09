@@ -13,9 +13,11 @@
       
     </div>
     <div class="col-sm-6">
-      <canvas #canvas width="1500px" height="1000px" style= "border:1px solid black; display:none;"></canvas>
-       <img #canvasImage width="600px" height="400px" [src]="canvasUrl">
+      <canvas #canvas width="700px" height="300px" style= "border:1px solid black; display:none;"></canvas>
+       <img #canvasImage width="450px" height="200px" [src]="canvasUrl">
        <save [imageUrl]="canvasUrl"></save>
+       <share  [imageUrl]="canvasUrl"></share>
+       <download-canvas  [imageUrl]="canvasUrl"></download-canvas>
     </div>
   </div>
 </div>

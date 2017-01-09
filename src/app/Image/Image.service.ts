@@ -10,10 +10,11 @@ export class ImageService {
  
  private _saveUrl = 'http://localhost/cloudWords/backend/saveImage.php';
  private _shareUrl = 'http://localhost/cloudWords/backend/shareImage.php';
+ private _historyUrl = 'http://localhost/cloudWords/backend/history.php';
 
   save(image:Image): Observable<string>{
     let body = `name=${image.name}&image=${image.url}`;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
  
     return this._http.post(this._saveUrl, body, options)
@@ -21,10 +22,34 @@ export class ImageService {
                     .catch(this.handleError)
   }
 
+  share(image:Image): Observable<string>{
+    let body = `image=${image.url}`;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+ 
+    return this._http.post(this._shareUrl, body, options)
+                    .map(res =>  <string> res.json())
+                    .catch(this.handleError)
+  }
+
+    getGallery(): Observable<string>{
+    let body = ``;
+    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let options = new RequestOptions({ headers: headers });
+ 
+    return this._http.post(this._historyUrl,body, options)
+                    .map(res =>  <string> res.json())
+                    .catch(this.handleError)
+  }
+
+
+
+
+
   private handleError (error: Response) {
     // in a real world app, we may send the server to some remote logging infrastructure
     // instead of just logging it to the console
     console.error('Error in retrieving news: ' + error);
-    return Observable.throw(error.json().error || 'Server error');
+    return Observable.throw(error || 'Server error');
   }
 }
