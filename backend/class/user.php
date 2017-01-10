@@ -391,8 +391,8 @@ class User
                 
 	            if ($success){
                     $date_create = date('Y-m-d H:i:s');
-                    $stmt = $this->conn->prepare("insert into Image (`hash`,  `id_uzytkownik`, `date_create`, `name`) VALUES(:hash,  :id_uzytkownik, :date_create, :name )");
-                    $stmt->bindparam(":hash", $hash);
+                    $stmt = $this->conn->prepare("insert into Image (`hash`,  `image`, `id_uzytkownik`, `date_create`, `name`) VALUES(:hash,  'image', :id_uzytkownik, :date_create, :name )");
+		    $stmt->bindparam(":hash", $hash);
                     $stmt->bindparam(":id_uzytkownik", $_SESSION['sesion_id']);
                     $stmt->bindparam(":date_create", $date_create);
                     $stmt->bindparam(":name", $name);
