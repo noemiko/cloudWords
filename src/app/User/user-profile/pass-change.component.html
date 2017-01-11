@@ -1,45 +1,28 @@
-<div class="container">
+ <div class="container">
         <div class="row centered-form">
-        <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
-        	<div class="panel panel-default">
-        		<div class="panel-heading">
-			    		<h3 class="panel-title">Change Password</h3>
-			 			</div>
-			 			<div class="panel-body">
-               {{information}}
-			 <div *ngIf="isResetWhenUserIsLogged">
-              <form role="form" (ngSubmit)="changePasswordWhenLogged($event)">
-                  <label for="actualpwd">Actual password:</label>
-                  <input [(ngModel)]="input.currentPassword" name="currentPassword" type="password" class="form-control " id="actualpwd">
-                <div class="form-group ">
-                  <label for="pwd">New password:</label>
-                  <input [(ngModel)]="input.password1" name="password1" type="password" class="form-control" id="pwd">
+            <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">LogIn</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form" (ngSubmit)="changePassword($event)">
+                            <div class="form-group " *ngIf="isResetWhenUserIsLogged">
+                                <input [(ngModel)]="input.currentPassword" placeholder="Actual password" name="currentPassword" type="password" class="form-control">
+                            </div>
+                            <div class="form-group ">
+                                <input [(ngModel)]="input.password1" name="password1" type="password" class="form-control" placeholder="New password">
+                            </div>
+                            <div class="form-group">
+                                <input [(ngModel)]="input.password2" name="password2" type="password" class="form-control" placeholder="Confirm new password">
+                            </div>
+
+                            <button type="submit" class="btn btn-info btn-block">Submit</button>
+                        </form>
+
+                    </div>
                 </div>
-                <div class="form-group">
-                  <label for="pwd2">Confirm new password:</label>
-                  <input [(ngModel)]="input.password2" name="password2" type="password" class="form-control" id="pwd2">
-                </div>
-              
-                <button type="submit" class="btn btn-default btn-block">Submit</button>
-              </form>
-     </div>
-     <div *ngIf="isResetByEmailLink">
-              <form role="form" (ngSubmit)="changePasswordByHash($event)">
-              <div class="col-xs-12">
-                <div class="form-group ">
-                  <label for="pwd">New password:</label>
-                  <input [(ngModel)]="inputWithHash.password1" name="password1" type="password" class="form-control" id="pwd">
-                </div>
-                <div class="form-group">
-                  <label for="pwd2">Confirm new password:</label>
-                  <input [(ngModel)]="inputWithHash.password2" name="password2" type="password" class="form-control" id="pwd2">
-                </div>
-              </div>
-                <button type="submit" class="btn btn-default btn-block">Submit</button>
-              </form>
-       </div>
-			    	</div>
-	    		</div>
-    		</div>
-    	</div>
+            </div>
+        </div>
     </div>
+

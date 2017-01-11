@@ -1,23 +1,29 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-6">
-      <button type="button" class="btn btn-default btn-block" (click)="showInput()">Input Text</button>
+
+
+        <div class="col-sm-12 col-md-6 col-lg-6 cloud-square">
+            <div class="panel">
+                <save [imageUrl]="canvasUrl"></save>
+                <share  [imageUrl]="canvasUrl"></share>
+                <download-canvas  [imageUrl]="canvasUrl"></download-canvas>
+            </div>
+              <canvas #canvas width="700px" height="400px" style=" display:none;"></canvas>
+               <img #canvasImage width="80%"  [src]="canvasUrl">
+
+        </div>
+
+    <div class="col-sm-12 col-md-6 col-lg-6">
+        <button type="button" class="btn btn-default btn-block" (click)="showInput()">Input Text</button>
         <div *ngIf="ShowInput">
-           <input-data-text (textToManipulate)="setTextToManipulate($event)"></input-data-text>
+            <input-data-text (textToManipulate)="setTextToManipulate($event)"></input-data-text>
         </div>
-      <button type="button" class="btn btn-default btn-block" (click)="showDataGrid()">Text Options</button>
+        <button type="button" class="btn btn-default btn-block" (click)="showDataGrid()">Text Options</button>
         <div *ngIf="ShowDataGrid">
-           <cloud-data-grid #dataGrid [data]="textStructure" (textToManipulate) = "setTextToManipulate($event)" ></cloud-data-grid>
+            <cloud-data-grid #dataGrid [data]="textStructure" (textToManipulate) = "setTextToManipulate($event)" ></cloud-data-grid>
         </div>
-      <button type="button" class="btn btn-primary btn-block" (click)="generateCloud()">Generate Own Cloud</button>
-      
+        <button type="button" class="btn btn-primary btn-block" (click)="generateCloud()">Generate Own Cloud</button>
     </div>
-    <div class="col-sm-6">
-      <canvas #canvas width="700px" height="300px" style= "border:1px solid black; display:none;"></canvas>
-       <img #canvasImage width="450px" height="200px" [src]="canvasUrl">
-       <save [imageUrl]="canvasUrl"></save>
-       <share  [imageUrl]="canvasUrl"></share>
-       <download-canvas  [imageUrl]="canvasUrl"></download-canvas>
     </div>
-  </div>
 </div>
+

@@ -8,28 +8,17 @@
 			 			<div class="panel-body">
 			    		<form role="form" (ngSubmit)="logIn($event)">
 			    		<div>
-			    			<div class="row">
-			    				<div class="col-xs-6 col-sm-6 col-md-6">
-									{{error}}
-			    					<div class="form-group">
-			                <input type="text" [(ngModel)]="input.login" name="login" class="form-control input-sm" placeholder="Login" >
-			    					</div>
-			    				</div>
-			    			</div>
-
-			    			<div class="row">
-			    				<div class="col-xs-6 col-sm-6 col-md-6">
-			    					<div class="form-group">
-			    						<input type="password" [(ngModel)]="input.password" name="password" class="form-control input-sm" placeholder="Password" >
-			    					</div>
-			    				</div>
-			    				</div>
-			    			</div>
-			    			
-			    			<input type="submit" class="btn btn-info btn-block">
-			    		
-			    		</form>
-						<li><a [routerLink]="['/resetpass']">click if you forget your password</a></li>
+							{{error}}
+							<div class="form-group">
+                                <input type="text" [(ngModel)]="input.login" name="login" class="form-control input-md" placeholder="Login" >
+                            </div>
+                            <div class="form-group">
+                                <input type="password" [(ngModel)]="input.password" name="password" class="form-control input-md" placeholder="Password" >
+                            </div>
+                        </div>
+                            <input type="submit" value="LogIn" class="btn btn-info btn-block">
+                        </form>
+                            <a class="" [routerLink]="['/resetpass']"> <input type="submit" value="click if you forget your password" class="btn btn-default btn-block"></a>
 			    	</div>
 	    		</div>
     		</div>

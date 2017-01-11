@@ -1,0 +1,22 @@
+.row{
+    margin:0 auto;
+    padding:0;
+}
+img-responsive{
+    display: block;
+    margin: 0 auto;
+}
+
+.panel{
+    position: absolute;
+    display: none;
+
+}
+
+.cloud-square:hover .panel{
+    display: block;
+}
+.cloud-square{
+    height:300px;
+    border:1px solid black;
+}

@@ -37,8 +37,5 @@ public get Password2():string{
     return this.password2;
 }
 
-
-
-
 } 
 

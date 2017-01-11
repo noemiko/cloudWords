@@ -45,7 +45,6 @@ export class UserService {
 
     resetPassword(input:any) {
     let body = `mail=${input.mail}`;
-    console.log(body)
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
         return this._http.post(this._resetPass, body, options)
@@ -63,9 +62,11 @@ export class UserService {
             .catch(this.handleError)
     }
     logOut() {
+      let input = 'hhh';
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+    let body = `mail=${input}`;
     let options = new RequestOptions({ headers: headers });
-        return this._http.post(this._logOutUrl,'',options)
+        return this._http.post(this._logOutUrl,body,options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
