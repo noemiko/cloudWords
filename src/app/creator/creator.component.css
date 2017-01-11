@@ -20,3 +20,10 @@ img-responsive{
     height:300px;
     border:1px solid black;
 }
+
+@media screen and (max-width: 765px) {
+    .cloud-square{
+        height:150px;
+        border:1px solid black;
+    }
+}

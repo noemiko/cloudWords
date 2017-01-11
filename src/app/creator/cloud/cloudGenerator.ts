@@ -139,7 +139,7 @@ private getStartedCoordinates(word:Word, ctx:CanvasRenderingContext2D):Rectangle
     var pt_y = Math.sqrt(pt_radius_sq) * Math.sin(pt_angle);
 
     let x = pt_x+ 250;
-    let y = pt_y + 100;
+    let y = pt_y + 150;
 
     let x2;
     let y2;

@@ -13,3 +13,12 @@
   flex-direction: column;
   flex: 1 1 0;
 }
+
+.text-to-start{
+  position:absolute;
+  width: 100%;
+  top: 340px;
+  font-weight: 900;
+  color: black;
+  text-shadow: 1px 1px 2px white, 0 0 155px #eaeaea, 0 0 5px #5757e2;
+}
