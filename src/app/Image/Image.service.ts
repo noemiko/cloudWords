@@ -11,8 +11,10 @@ export class ImageService {
  private _saveUrl = 'http://localhost/cloudWords/backend/saveImage.php';
  private _shareUrl = 'http://localhost/cloudWords/backend/shareImage.php';
  private _historyUrl = 'http://localhost/cloudWords/backend/history.php';
+ private _removeUrl = 'http://localhost/cloudWords/backend/removeImage.php';
 
-  save(image:Image): Observable<string>{
+
+    save(image:Image): Observable<string>{
     let body = `name=${image.name}&image=${image.url}`;
     let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
@@ -22,8 +24,8 @@ export class ImageService {
                     .catch(this.handleError)
   }
 
-  share(image:Image): Observable<string>{
-    let body = `image=${image.url}`;
+  share(imageFileName:string): Observable<string>{
+    let body = `hash=${imageFileName}`;
     let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
     let options = new RequestOptions({ headers: headers });
  
@@ -41,6 +43,16 @@ export class ImageService {
                     .map(res =>  <string> res.json())
                     .catch(this.handleError)
   }
+
+    remove(imageFileName:string): Observable<string>{
+        let body = `hash=${imageFileName}`;
+        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
+        let options = new RequestOptions({ headers: headers });
+
+        return this._http.post(this._removeUrl, body, options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
 
 
 

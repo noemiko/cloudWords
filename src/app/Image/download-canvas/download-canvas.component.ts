@@ -7,15 +7,20 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class DownloadCanvasComponent implements OnInit {
   @Input() imageUrl:any='';
+  @Input() imagePath:any='';
 
-  constructor() {console.log(this.imageUrl) }
+  constructor() { }
 
   ngOnInit() {
-    console.log(this.imageUrl)
+
   }
   download(){
-    console.log(this.imageUrl)
-    let imageToDownload = this.imageUrl.replace("image/png", "image/octet-stream");
-    window.location.href = imageToDownload;
+    if(this.imageUrl ===''){
+        window.open(this.imagePath);
+    }
+    else {
+      let imageToDownload = this.imageUrl.replace("image/png", "image/octet-stream");
+      window.location.href = imageToDownload;
+    }
   }
 }

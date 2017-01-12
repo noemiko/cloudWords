@@ -57,7 +57,7 @@ export class SaveComponent implements OnInit {
         console.log(response)
       }
  
-      if(response.type =='error'){
+      if(response.error ===true){
         this.info = response.message;
       }
     }

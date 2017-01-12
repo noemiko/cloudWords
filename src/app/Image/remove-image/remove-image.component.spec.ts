@@ -3,21 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
-import { UserGalleryComponent } from './gallery.component';
+import { RemoveImageComponent } from './remove-image.component';
 
-describe('GalleryComponent', () => {
-  let component: UserGalleryComponent;
-  let fixture: ComponentFixture<UserGalleryComponent>;
+describe('RemoveImageComponent', () => {
+  let component: RemoveImageComponent;
+  let fixture: ComponentFixture<RemoveImageComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserGalleryComponent ]
+      declarations: [ RemoveImageComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserGalleryComponent);
+    fixture = TestBed.createComponent(RemoveImageComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -21,7 +21,8 @@ import { LogOutComponent } from './User/log-out/log-out.component';
 import { SaveComponent } from './Image/save/save.component';
 import { ShareComponent } from './Image/share/share.component';
 import {SafePipe} from './safeHelper';
-import { DownloadCanvasComponent } from './Image/download-canvas/download-canvas.component'
+import { DownloadCanvasComponent } from './Image/download-canvas/download-canvas.component';
+import { RemoveImageComponent } from './Image/remove-image/remove-image.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { DownloadCanvasComponent } from './Image/download-canvas/download-canvas
     SaveComponent,
     ShareComponent,
     SafePipe,
-    DownloadCanvasComponent
+    DownloadCanvasComponent,
+    RemoveImageComponent
   ],
   imports: [
     BrowserModule,

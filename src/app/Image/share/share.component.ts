@@ -9,16 +9,14 @@ import { Image } from './../Image';
   providers:[ImageService]
 })
 export class ShareComponent implements OnInit {
-  @Input() imageUrl='';
+  @Input() imageFileName='';
   constructor(private _imageService : ImageService) { }
 
   ngOnInit() {
   }
    private share():void {
-      const image = new Image();
-      image.url = this.imageUrl;
-      
-      this._imageService.share(image).subscribe(
+
+      this._imageService.share(this.imageFileName).subscribe(
         
         response => this.handleResponse(response),
         error => this.handleResponse(error)

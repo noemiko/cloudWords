@@ -1,11 +1,13 @@
 
 <div class="container">
-  <div class="row">
+  <div  class="row">
       <div class="image-square " *ngFor="let image of imageList">
-             <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Date create {{image.date_create}}" href="#">
+             <div class="col-lg-3 col-sm-4 col-xs-6"><a title="Date create {{image.date_create}}" >
                  <div class="panel pull-right">
-                     <share  [imageUrl]="image.image"></share>
-                    <download-canvas  [imageUrl]="image.image"></download-canvas>
+                     <share  [imageFileName]="image.hash"></share>
+
+                    <download-canvas  [imagePath]="'./../backend/img/'+image.id_uzytkownik+'/'+image.hash+'.png'"></download-canvas>
+                     <remove-image (click)="removeFromGUI($event)" [imageFileName]="image.hash"></remove-image>
                  </div>
                  <img class="thumbnail img-responsive" [src]="'./../backend/img/'+image.id_uzytkownik+'/'+image.hash+'.png'"></a>
                  <div class="name">{{image.name}}</div>

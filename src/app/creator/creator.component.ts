@@ -11,7 +11,6 @@ import { Word } from './cloud/Word';
 export class CreatorComponent implements OnInit {
   private canvaCloud: CanvasRenderingContext2D;
   private textToManipulate:string;//output from text input
-  private textAfterUserModifications:string;
   private canvasUrl = '' ;
   private words:Words = new Words()
   private ShowInput:boolean = false;
@@ -31,9 +30,12 @@ export class CreatorComponent implements OnInit {
   }
 
   private generateCloud():void{
-   let cloud = new CloudGenerator(this.textStructure, this.canvaCloud);
-   this.canvasUrl = cloud.getImageUri();
-   console.log();
+      console.log(this.textStructure)
+      if (this.textStructure != undefined){
+          let cloud = new CloudGenerator(this.textStructure, this.canvaCloud);
+          this.canvasUrl = cloud.getImageUri();
+      }
+
   }
   constructor() { 
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ImageService } from './../Image.service';
 //import { Image } from './../Image';
 import {DomSanitizer} from '@angular/platform-browser';
@@ -13,6 +13,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 export class UserGalleryComponent implements OnInit {
 private imageList: any[] = [];
+    @ViewChild('allImages') allImages:ElementRef;
 
   constructor(private _imageService : ImageService, private sanitizer: DomSanitizer) {
 
@@ -23,33 +24,27 @@ private imageList: any[] = [];
   ngOnInit() {
   }
 
+    private removeFromGUI(event:any){
+        event.path[5].hidden = true;
+    }
 
    private initGallery():void {
-      
+
       this._imageService.getGallery().subscribe(
-        
+
         response => this.handleResponse(response),
         error => this.handleResponse(error)
       );
     }
- 
+
     private handleResponse(response){
-      console.log(response)
       if(response.error ===false){
-        this.createGallery(response.message);
+          this.imageList=response.message;
       }
- 
+
       if(response.error ==true){
         //this.info = response.message;
       }
-    }
-    private createGallery(imagesData:any[]){
-        imagesData.forEach(x=>{
-          console.log(x.image.length)
-          x.image =  this.sanitizer.bypassSecurityTrustUrl(x.image);
-        })
-     
-     this.imageList=imagesData;
     }
 
 

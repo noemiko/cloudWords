@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from './../user.service';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'pass-change',
-  templateUrl: './pass-change.component.html',
-  styleUrls: ['./pass-change.component.css'],
+  templateUrl: 'pass-change.component.html',
+  styleUrls: ['pass-change.component.css'],
   providers:[UserService]
 })
 export class PassChangeComponent implements OnInit {
