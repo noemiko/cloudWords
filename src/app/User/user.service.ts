@@ -1,83 +1,66 @@
 import {Injectable}               from '@angular/core';
-import {Http, Response}           from '@angular/http';
-import {Headers, RequestOptions}  from '@angular/http';
+import {Http}                     from '@angular/http';
 import {Observable}               from 'rxjs/Observable';
 import {User}                     from './User';
- 
+import {DefaultService}           from './../default/default.Service';
+
 @Injectable()
-export class UserService {
-  constructor (private _http: Http) {}
- 
- private _registerUrl = 'http://localhost/cloudWords/backend/register.php';
- private _logInUrl = 'http://localhost/cloudWords/backend/login.php';
- private _changePassUrl = 'http://localhost/cloudWords/backend/chagnePasswordWhenLogedIn.php';
- private _resetPass = 'http://localhost/cloudWords/backend/verifymail.php';
- private _changePassByHashUrl = 'http://localhost/cloudWords/backend/changePassworByMail.php';
- private _logOutUrl = 'http://localhost/cloudWords/backend/logout.php';
+export class UserService extends DefaultService {
 
-  add(user:User): Observable<string>{
-    let body = `login=${user.Login}&mail=${user.Mail}&password=${user.Password}&password2=${user.Password2}`;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
- 
-    return this._http.post(this._registerUrl, body, options)
-                    .map(res =>  <string> res.json())
-                    .catch(this.handleError)
-  }
-   logIn(input:any) {
-    let body = `login=${input.login}&password=${input.password}`;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-        return this._http.post(this._logInUrl, body, options)
+    constructor (protected _http: Http) {
+        super(_http);
+    }
+
+    private _registerUrl = this.backendPath+'register.php';
+    private _logInUrl = this.backendPath+'login.php';
+    private _changePassUrl = this.backendPath+'chagnePasswordWhenLogedIn.php';
+    private _resetPass = this.backendPath+'verifymail.php';
+    private _changePassByHashUrl = this.backendPath+'hangePassworByMail.php';
+    private _logOutUrl = this.backendPath+'logout.php';
+
+    public add(user:User): Observable<string>{
+        let body = `login=${user.Login}&mail=${user.Mail}&password=${user.Password}&password2=${user.Password2}`;
+
+        return this._http.post(this._registerUrl, body, this.options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
+    public logIn(input:any) {
+        let body = `login=${input.login}&password=${input.password}`;
+
+        return this._http.post(this._logInUrl, body, this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
 
-    changePasswordWhenLogged(input:any) {
-    let body = `currentPassword=${input.currentPassword}&password1=${input.password1}&password2=${input.password2}`;
-    console.log(body)
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-        return this._http.post(this._changePassUrl, body, options)
+    public changePasswordWhenLogged(input:any) {
+        let body = `currentPassword=${input.currentPassword}&password1=${input.password1}&password2=${input.password2}`;
+
+        return this._http.post(this._changePassUrl, body, this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
 
-    resetPassword(input:any) {
-    let body = `mail=${input.mail}`;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-        return this._http.post(this._resetPass, body, options)
+    public resetPassword(input:any) {
+        let body = `mail=${input.mail}`;
+
+        return this._http.post(this._resetPass, body, this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
 
-    changePasswordByHash(input:any) {
-    let body = `mail=${input.email}&password1=${input.password1}&password2=${input.password2}&hash=${input.hash}`;
-    console.log(body)
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
-        return this._http.post(this._changePassByHashUrl, body, options)
+    public changePasswordByHash(input:any) {
+        let body = `mail=${input.email}&password1=${input.password1}&password2=${input.password2}&hash=${input.hash}`;
+
+        return this._http.post(this._changePassByHashUrl, body, this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
-    logOut() {
-      let input = 'hhh';
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let body = `mail=${input}`;
-    let options = new RequestOptions({ headers: headers });
-        return this._http.post(this._logOutUrl,body,options)
+    public logOut() {
+        return this._http.post(this._logOutUrl,'',this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
 
 
-    
- 
-  private handleError (error: Response) {
-    // in a real world app, we may send the server to some remote logging infrastructure
-    // instead of just logging it to the console
-    console.error('Error in retrieving news: ' + error);
-    return Observable.throw(error.json().error || 'Server error');
-  }
 }

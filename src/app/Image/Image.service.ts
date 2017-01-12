@@ -1,67 +1,50 @@
 import {Injectable}               from '@angular/core';
-import {Http, Response}           from '@angular/http';
-import {Headers, RequestOptions}  from '@angular/http';
+import {Http}                     from '@angular/http';
 import {Observable}               from 'rxjs/Observable';
 import {Image}                     from './Image';
- 
+import {DefaultService}           from './../default/default.Service';
+
 @Injectable()
-export class ImageService {
-  constructor (private _http: Http) {}
- 
- private _saveUrl = 'http://localhost/cloudWords/backend/saveImage.php';
- private _shareUrl = 'http://localhost/cloudWords/backend/shareImage.php';
- private _historyUrl = 'http://localhost/cloudWords/backend/history.php';
- private _removeUrl = 'http://localhost/cloudWords/backend/removeImage.php';
+export class ImageService extends DefaultService{
+    constructor (protected _http: Http) {
+        super(_http);
+    }
+
+    private _saveUrl = this.backendPath+'saveImage.php';
+    private _shareUrl = this.backendPath+'shareImage.php';
+    private _historyUrl = this.backendPath+'history.php';
+    private _removeUrl = this.backendPath+'removeImage.php';
 
 
-    save(image:Image): Observable<string>{
-    let body = `name=${image.name}&image=${image.url}`;
-    let headers = new Headers({'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
- 
-    return this._http.post(this._saveUrl, body, options)
-                    .map(res =>  <string> res.json())
-                    .catch(this.handleError)
-  }
+    public save(image:Image): Observable<string>{
+        let body = `name=${image.name}&image=${image.url}`;
 
-  share(imageFileName:string): Observable<string>{
-    let body = `hash=${imageFileName}`;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
- 
-    return this._http.post(this._shareUrl, body, options)
-                    .map(res =>  <string> res.json())
-                    .catch(this.handleError)
-  }
-
-    getGallery(): Observable<string>{
-    let body = ``;
-    let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-    let options = new RequestOptions({ headers: headers });
- 
-    return this._http.post(this._historyUrl,body, options)
-                    .map(res =>  <string> res.json())
-                    .catch(this.handleError)
-  }
-
-    remove(imageFileName:string): Observable<string>{
-        let body = `hash=${imageFileName}`;
-        let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
-        let options = new RequestOptions({ headers: headers });
-
-        return this._http.post(this._removeUrl, body, options)
+        return this._http.post(this._saveUrl, body, this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }
 
+    public share(imageFileName:string): Observable<string>{
+        let body = `hash=${imageFileName}`;
 
+        return this._http.post(this._shareUrl, body, this.options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
 
+    public getGallery(): Observable<string>{
+        let body = ``;
 
+        return this._http.post(this._historyUrl,body, this.options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
 
-  private handleError (error: Response) {
-    // in a real world app, we may send the server to some remote logging infrastructure
-    // instead of just logging it to the console
-    console.error('Error in retrieving news: ' + error);
-    return Observable.throw(error || 'Server error');
-  }
+    public remove(imageFileName:string): Observable<string>{
+        let body = `hash=${imageFileName}`;
+
+        return this._http.post(this._removeUrl, body, this.options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
 }
