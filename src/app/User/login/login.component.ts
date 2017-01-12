@@ -18,8 +18,6 @@ export class LoginComponent implements OnInit {
     ngOnInit() { }
  
     logIn(event) {
-     //const user = new User(this.input.login, this.input.mail, this.input.password)
-     
       this._registerService.logIn(this.input).subscribe(
         
         response => this.handleResponse(response),
@@ -28,14 +26,12 @@ export class LoginComponent implements OnInit {
     }
  
     handleResponse(response){
-      console.log(response)
-      if(response.error ==false){
-        this.error = 'Zalogowano';
-        //sessionStorage.setItem('user', this.input.login);
+      if(response.error ===false){
+        sessionStorage.setItem('user', response.message.id);
         this.router.navigateByUrl('gallery');
       }
  
-      if(response.error ==true){
+      if(response.error ===true){
         this.error = response.message;
       }
     }

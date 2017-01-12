@@ -29,13 +29,11 @@ export class LogOutComponent implements OnInit {
  
     handleResponse(response){
       console.log(response)
-      if(response.error ==false){
-       // this.error = 'Zalogowano';
-       // sessionStorage.removeItem('user');
-       // this.router.navigateByUrl('');
+      if(response.error ===false){
+       sessionStorage.removeItem('user');
       }
  
-      if(response.error ==true){
+      if(response.error ===true){
         this.error = response.message;
       }
     }
