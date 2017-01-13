@@ -1,6 +1,6 @@
 import {Routes, RouterModule} from "@angular/router";
 import {AppComponent} from "./app.component";
-import {ContentComponent} from "./default/content/content.component";
+import {ContentComponent} from "./base/content/content.component";
 import {CreatorComponent} from "./creator/creator.component";
 import {UserGalleryComponent} from "./Image/gallery/gallery.component";
 import {RegisterComponent} from "./User/register/register.component";

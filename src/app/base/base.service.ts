@@ -4,10 +4,12 @@ import {Headers, RequestOptions}  from '@angular/http';
 import {Observable}               from 'rxjs/Observable';
 
 @Injectable()
-export class DefaultService {
+export class BaseService {
     protected headers:Headers;
     protected options:RequestOptions;
     protected backendPath:string = './../backend/';
+
+    private _isLoggedUrl = this.backendPath+'UserInformation.php';
 
     constructor (protected _http: Http) {
         this.headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
@@ -19,5 +21,11 @@ export class DefaultService {
         return Observable.throw(error.json().error || 'Server error');
     }
 
+    public isLoggedIn(): Observable<string>{
+        let body = ``;
+        return this._http.post(this._isLoggedUrl,body, this.options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
 
 }

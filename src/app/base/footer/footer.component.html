@@ -1,0 +1,5 @@
+<ul>
+      <li><a [routerLink]="['creator']" title="Open page to generate words clouds">New Cloud</a></li>
+      <li *ngIf="isUserLogged"><a [routerLink]="['gallery']" title="Gallery">History</a></li>
+      <li *ngIf!="isUserLogged"><a [routerLink]="['register']" title="Sign up if you don't have account">Sign up</a></li>
+</ul>

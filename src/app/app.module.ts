@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './default/header/header.component';
-import { ContentComponent } from './default/content/content.component';
-import { FooterComponent } from './default/footer/footer.component';
+import { HeaderComponent } from './base/header/header.component';
+import { ContentComponent } from './base/content/content.component';
+import { FooterComponent } from './base/footer/footer.component';
 import { CreatorComponent } from './creator/creator.component';
 import { InputDataTextComponent } from './creator/input-data-text/input-data-text.component';
 import { CloudService } from './creator/cloud-service.service';

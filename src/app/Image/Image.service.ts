@@ -2,10 +2,10 @@ import {Injectable}               from '@angular/core';
 import {Http}                     from '@angular/http';
 import {Observable}               from 'rxjs/Observable';
 import {Image}                     from './Image';
-import {DefaultService}           from './../default/default.Service';
+import {BaseService}           from '../base/base.service';
 
 @Injectable()
-export class ImageService extends DefaultService{
+export class ImageService extends BaseService{
     constructor (protected _http: Http) {
         super(_http);
     }
