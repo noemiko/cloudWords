@@ -364,7 +364,7 @@ class User
         $message ='     
     Jesli chcesz zmienic haslo kliknij w link ponizej:
     
-    http://canero.c0.pl/test/changepassword.php?email='.$email.'&hash='.$hash.''; 
+    http://localhost/changepass/'.$email.'/'.$hash;  
         
         }
                        
