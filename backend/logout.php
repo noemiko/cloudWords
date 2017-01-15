@@ -7,7 +7,7 @@
     {
         if($user -> is_loggedin()){
             $user -> doLogout();
-		//echo  json_encode(array('error' => false, 'message' => "Zostales wylogowany"));
+	    //echo  json_encode(array('error' => false, 'message' => "Zostales wylogowany"));
         }else{
             //echo  json_encode(array('error' => false, 'message' => "Zostales wylogowany"));
         }
