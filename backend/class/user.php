@@ -304,10 +304,17 @@ class User
 	
 	public function is_loggedin()
 	{
-		if(isset($_SESSION['user_session']))
-		{
+	    try{
+            	session_start();
+            	if(isset($_SESSION['user_session']))
+            	{
 			return true;
-		}
+            	}
+            }
+            catch(Exception $e)
+            {
+		echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+	    }
 	}
 	
 	public function redirect($url)
@@ -317,19 +324,27 @@ class User
 	
 	public function doLogout()
 	{
-        session_start();
-        $_SESSION = array();
-        
-        if (ini_get("session.use_cookies")) {
-            $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000,
-            $params["path"], $params["domain"],
-            $params["secure"], $params["httponly"]
-        );
+       try{
+            session_start();
+            $_SESSION = array();
+            /*if (isset($_COOKIE[session_name()])) { 
+                setcookie(session_name(), '', time()-42000, '/'); 
+            }*/
+            
+            if (ini_get("session.use_cookies")) {
+                $params = session_get_cookie_params();
+                setcookie(session_name(), '', time() - 42000,
+                $params["path"], $params["domain"],
+                $params["secure"], $params["httponly"]
+            );
+            }
+            session_destroy();
+    	    return true;
         }
-
-        session_destroy();
-		return true;
+        catch(Exception $e)
+        {
+    		echo json_encode(array('error' => true, 'message' => $e->getMessage()));
+	}
 	}
     
     
