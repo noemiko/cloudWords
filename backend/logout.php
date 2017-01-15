@@ -13,10 +13,8 @@
         	}else{
             		echo  json_encode(array('error' => false, 'message' => "Zostales wylogowany"));
         	}
-        
     }
        } catch (Exception $e) {
-       
                echo  json_encode(array('error' => true, 'message' => $e->getMessage()));
         }
 ?>
