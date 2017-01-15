@@ -16,6 +16,7 @@
         
     }
        } catch (Exception $e) {
+       
                echo  json_encode(array('error' => true, 'message' => $e->getMessage()));
         }
 ?>
