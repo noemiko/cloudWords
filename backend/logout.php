@@ -1,4 +1,5 @@
    <?php
+     try{
     require_once('calss/user.php');
     session_start();
     session_regenerate_id(true);
@@ -12,8 +13,9 @@
         	}else{
             		echo  json_encode(array('error' => false, 'message' => "Zostales wylogowany"));
         	}
-        } catch (Exception $e) {
-             	echo  json_encode(array('error' => true, 'message' => $e->getMessage()));
-        }
+        
     }
+       } catch (Exception $e) {
+               echo  json_encode(array('error' => true, 'message' => $e->getMessage()));
+        }
 ?>
