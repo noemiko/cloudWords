@@ -355,7 +355,7 @@ class User
      
     W celu aktywacji konta kliknij w link poniżej:
     
-    http://canero.c0.pl/test/verify.php?email='.$email.'&hash='.$hash.''; 
+    http://canero.c0.pl/test/changepassword.php?email='.$email.'&hash='.$hash.'';
           		
         }else{
         
