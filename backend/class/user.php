@@ -3,6 +3,7 @@
 require_once('dbconfig.php');
 require_once('device.php');
 require_once('Session.php');
+require_once('PHPMailer/PHPMailerAutoload.php');
 
 class User
 {	
@@ -344,36 +345,43 @@ class User
     
     
     public function sendMailToUser($email, $hash, $register){
-        
-        $subject = '';
-        $message = '';
-        
+	$mail = new PHPMailer();
+        $mail->isSMTP(true);
+        $mail->SMTPOptions = array(
+        'ssl' => array(
+        'verify_peer' => false,
+        'verify_peer_name' => false,
+        'allow_self_signed' => true
+        )
+        );
+        $mail->SMTPSecure = "ssl";  
+        $mail->Host = 'smtp.gmail.com'; 
+        $mail->Port =  465;
+        $mail->SMTPAuth = true;
+        $mail->Username = "TekstCloud@gmail.com";
+        $mail->Password = "TekstCloud123";
+        $mail->isHTML(true);  
+        $mail->setFrom('TekstCloud@gmail.com', 'TekstCloud');
+        $mail->AddAddress($email);
+        $bodyContent = '';
         if ($register == 1){
-        $subject = 'Potwierdzenie Rejestracji';
-        $message ='     
-    Dziękuję message zarejestrowanie się na naszej stronie.
-     
-    W celu aktywacji konta kliknij w link poniżej:
-    
-    http://canero.c0.pl/test/changepassword.php?email='.$email.'&hash='.$hash.'';
-          		
+            $bodyContent = '<h1>otwierdzenie Rejestracji</h1>';
+            $bodyContent .= '<p> Dziękuję message zarejestrowanie się na naszej stronie.</p>';
+            $bodyContent .= '<p> W celu aktywacji konta kliknij w link poniżej:</p>';
+            $bodyContent .= '<p> http://localhost/changepass/'.$email.'/'.$hash.'</p>';
+            $mail->Subject = 'Potwierdzenie Rejestracji';
         }else{
-        
-        $subject = 'Zmiana hasla';
-        
-        $message ='     
-    Jesli chcesz zmienic haslo kliknij w link ponizej:
-    
-    http://localhost/changepass/'.$email.'/'.$hash;  
-        
+            $bodyContent = '<h1>Zmiana hasla</h1>';
+            $bodyContent .= '<p> Jesli chcesz zmienic haslo kliknij w link ponizej:</p>';
+            $bodyContent .= '<p> http://localhost/changepass/'.$email.'/'.$hash.'</p>';
+            $mail->Subject = 'Zmiana hasla';
         }
-                       
-        $headers = 'From:admin@canero.c0.pl' . "\r\n"; 
-        $headers.= "MIME-Version: 1.0\r\n"; 
-        $headers.= "Content-Type: text/html; charset=ISO-8859-1\r\n"; 
-        $headers.= "X-Priority: 1\r\n"; 
-        mail($email, $subject, $message, $headers); 
-        echo json_encode(array('error' => false, 'message' =>  "mail zostal wyslany"));
+        $mail->Body = $bodyContent;
+        if(!$mail->send()) {
+            echo json_encode(array('error' => true, 'message' =>  $mail->ErrorInfo));
+        } else {
+            echo json_encode(array('error' => false, 'message' =>  "mail zostal wyslany"));
+        }
     }
     
     private function geolocation(){
