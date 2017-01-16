@@ -10,6 +10,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	}
 	$hash = filter_var(trim($_POST["hash"]), FILTER_SANITIZE_STRING);
 	$umail = filter_var(trim($_POST["mail"]), FILTER_SANITIZE_EMAIL);
-  $user-> acountVerification($hash, $umail);
+  	$user-> acountVerification($hash, $umail);
 }
 ?>
