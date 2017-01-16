@@ -368,7 +368,7 @@ class User
             $bodyContent = '<h1>otwierdzenie Rejestracji</h1>';
             $bodyContent .= '<p> Dziękuję message zarejestrowanie się na naszej stronie.</p>';
             $bodyContent .= '<p> W celu aktywacji konta kliknij w link poniżej:</p>';
-            $bodyContent .= '<p> http://localhost/changepass/'.$email.'/'.$hash.'</p>';
+            $bodyContent .= '<p> http://localhost/activate/'.$email.'/'.$hash.'</p>';
             $mail->Subject = 'Potwierdzenie Rejestracji';
         }else{
             $bodyContent = '<h1>Zmiana hasla</h1>';
