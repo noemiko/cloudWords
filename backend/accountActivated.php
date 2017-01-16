@@ -12,5 +12,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 	$umail = filter_var(trim($_POST["mail"]), FILTER_SANITIZE_EMAIL);
   $user-> acountVerification($hash, $umail);
 }
-
 ?>
