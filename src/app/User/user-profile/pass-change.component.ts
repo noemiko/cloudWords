@@ -23,25 +23,28 @@ export class PassChangeComponent implements OnInit {
 
     }
   ngOnInit() {
-    this.checkResetWay();
+      if(this.routeMail==undefined&&this.hash==undefined){
+          this.isResetWhenUserIsLogged = true;
+      }else{
+          this.isResetByEmailLink = true;
+      }
   }
+  changePassword(){
+          if(this.isResetWhenUserIsLogged == true){
+              this.changePasswordWhenLogged();
+          }else{
+              this.changePasswordByHash();
+          }
 
-  checkResetWay(){
-    if(this.routeMail==undefined&&this.hash==undefined){
-      this.isResetWhenUserIsLogged = true;
-    }else{
-      this.isResetByEmailLink = true;
-    }
   }
-    changePasswordWhenLogged(event) {
-      console.log(this.input)
+    changePasswordWhenLogged() {
       this._registerService.changePasswordWhenLogged(this.input).subscribe(
         response => this.handleResponse(response),
         error => this.handleResponse(error)
       );
     }
 
-    changePasswordByHash(event) {
+    changePasswordByHash() {
       this.input['hash'] = this.hash;
       this.input['email'] = this.routeMail;
       this._registerService.changePasswordByHash(this.input ).subscribe(
@@ -51,12 +54,12 @@ export class PassChangeComponent implements OnInit {
     }
  
     handleResponse(response){
-
+    console.log(response)
       if(response.error ==false){
-        this.information = 'Hasło zostało zmienione'
+        this.information = 'Password is changed'
       }
  
-      if(response.error ==true){
+      if(response.error ===true){
         this.information = response.message;
       }
     }

@@ -12,13 +12,13 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav navbar-right">
+        <li *ngIf!="loggedIn "><a [routerLink]="['register']">Register</a></li>
+        <li *ngIf!="loggedIn"><a [routerLink]="['login']">Log In</a></li>
+        <li ><a [routerLink]="['creator']">New Cloud</a></li>
 
-        <li *ngIf!="isUserLogged"><a [routerLink]="['register']">Register</a></li>
-        <li *ngIf!="isUserLogged"><a [routerLink]="['login']">Log In</a></li>
-
-        <li *ngIf="isUserLogged"><a [routerLink]="['gallery']">Gallery</a></li>
-        <li *ngIf="isUserLogged"><a [routerLink]="['changepass']">Change pass</a></li>
-        <li *ngIf="isUserLogged"><a [routerLink]="['logout']">LogOut</a></li>
+        <li *ngIf="loggedIn"><a [routerLink]="['gallery']">Gallery</a></li>
+        <li *ngIf="loggedIn"><a [routerLink]="['changepass']">Change pass</a></li>
+        <li *ngIf="loggedIn"><a [routerLink]="['logout']">LogOut</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

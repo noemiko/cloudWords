@@ -1,10 +1,13 @@
 import {Injectable}               from '@angular/core';
 import {Http, Response}           from '@angular/http';
 import {Headers, RequestOptions}  from '@angular/http';
-import {Observable}               from 'rxjs/Observable';
+import {ReplaySubject, Observable, BehaviorSubject} from 'rxjs/Rx';
 
 @Injectable()
-export class BaseService {
+export class AuthenticationService {
+    public userLoggedIn:BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+    public userName:string = 'empty';
+
     protected headers:Headers;
     protected options:RequestOptions;
     protected backendPath:string = './../backend/';

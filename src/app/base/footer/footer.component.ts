@@ -1,18 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import { Base } from './../Base';
-import { BaseService } from './../base.service';
+import { Authentication } from '../Authentication';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
     selector: 'footer',
     templateUrl: './footer.component.html',
-    styleUrls: ['./footer.component.css'],
-    providers: [BaseService]
+    styleUrls: ['./footer.component.css']
 })
-export class FooterComponent extends Base implements OnInit {
+export class FooterComponent extends Authentication implements OnInit {
+    private isUserLogged:boolean;
 
-    constructor(protected _defaultService : BaseService) {
-        super(_defaultService);
-        this.isLogged();
+    constructor(protected _baseService : AuthenticationService) {
+        super(_baseService);
+
+        this._baseService.userLoggedIn.subscribe(loggedIn => {
+            this.isUserLogged = loggedIn;
+        });
     }
 
     ngOnInit() {

@@ -5,46 +5,70 @@ import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
-  selector: 'user-gallery',
-  templateUrl: './gallery.component.html',
-  styleUrls: ['./gallery.component.css'],
-  providers:[ImageService ]
+    selector: 'user-gallery',
+    templateUrl: './gallery.component.html',
+    styleUrls: ['./gallery.component.css'],
+    providers:[ImageService ]
 })
 
 export class UserGalleryComponent implements OnInit {
-private imageList: any[] = [];
+    private imageList: any[] = [];
+    private textInformation:string;
+    private urlToShare:string;
+    private biggerImage:string='';
+
     @ViewChild('allImages') allImages:ElementRef;
 
-  constructor(private _imageService : ImageService, private sanitizer: DomSanitizer) {
+    constructor(private _imageService : ImageService, private sanitizer: DomSanitizer) {
+        this.initGallery();
+    }
 
-    this.initGallery();
-   // this.createGallery(this.getArrayData())
-   }
+    ngOnInit() {
+    }
 
-  ngOnInit() {
-  }
-
+    private openBigger(imageUrl:string){
+        this.biggerImage=imageUrl;
+        this.textInformation = '';
+    }
     private removeFromGUI(event:any){
         event.path[5].hidden = true;
     }
 
-   private initGallery():void {
+    private initGallery():void {
 
-      this._imageService.getGallery().subscribe(
+        this._imageService.getGallery().subscribe(
 
-        response => this.handleResponse(response),
-        error => this.handleResponse(error)
-      );
+            response => this.handleResponse(response),
+            error => this.handleResponse(error)
+        );
     }
 
     private handleResponse(response){
-      if(response.error ===false){
-          this.imageList=response.message;
-      }
+        if(response.error ===false){
+            this.imageList=response.message;
+            this.textInformation = 'Gallery loaded'
+        }
 
-      if(response.error ==true){
-        //this.info = response.message;
-      }
+        if(response.error ==true){
+            this.textInformation = response.message;
+        }
+    }
+
+    setTextInformation(input){
+        console.log(input);
+        this.setInformationStructure(input);
+        console.log(window.location.pathname)
+    }
+
+    private setInformationStructure(text:string){
+        const divideCharPosition = text.indexOf(":");
+        if(divideCharPosition === -1){
+            this.textInformation =  text;
+        }
+        else{
+            this.urlToShare = text.slice(divideCharPosition+1,-4);
+            this.textInformation = text.slice(0 ,divideCharPosition+1);
+        }
     }
 
 

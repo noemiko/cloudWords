@@ -21,7 +21,7 @@ export class InputDataTextComponent implements OnInit {
 
   private placeHolder = `Paste text here`;
 
-  constructor(private cloudService:CloudService ) { 
+  constructor( ) {
    
   }
 

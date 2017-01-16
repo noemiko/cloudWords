@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ImageService } from './../Image.service';
+import { ImageService } from './../../Image.service';
 @Component({
   selector: 'remove-image',
   templateUrl: 'remove-image.component.html',
   styleUrls: ['remove-image.component.css']
 })
 export class RemoveImageComponent implements OnInit {
-    @Input() imageFileName='';
+  @Input() imageFileName='';
   constructor(private _imageService : ImageService) { }
 
   ngOnInit() {

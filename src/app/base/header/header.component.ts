@@ -1,21 +1,24 @@
-import { Component, OnInit } from '@angular/core';
-import { Base } from './../Base';
-import { BaseService } from './../base.service';
+import { Component, OnInit, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Authentication } from '../Authentication';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
     selector: 'navigation-bar',
-    templateUrl: './header.component.html',
-    providers: [BaseService]
+    templateUrl: './header.component.html'
 })
-export class HeaderComponent extends Base implements OnInit {
-
-
-    constructor(protected _baseService : BaseService) {
+export class HeaderComponent extends Authentication {
+    private loggedIn: any;
+    constructor(private _baseService : AuthenticationService, private _ref: ChangeDetectorRef) {
         super(_baseService);
-        let Default
+        this.isLogged();
+
+        const isLogged = this._baseService.userLoggedIn.subscribe(loggedIn => {
+            this.loggedIn = loggedIn;
+        });
+
+
     }
 
-    ngOnInit() {
-    }
+
 }
 

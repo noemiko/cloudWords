@@ -18,40 +18,48 @@ import { LoginComponent } from './User/login/login.component';
 import { PassChangeComponent } from './User/user-profile/pass-change.component';
 import { ResetPasswordComponent } from './User/reset-password/reset-password.component';
 import { LogOutComponent } from './User/log-out/log-out.component';
-import { SaveComponent } from './Image/save/save.component';
-import { ShareComponent } from './Image/share/share.component';
-import {SafePipe} from './safeHelper';
-import { DownloadCanvasComponent } from './Image/download-canvas/download-canvas.component';
-import { RemoveImageComponent } from './Image/remove-image/remove-image.component'
+import { SaveComponent } from './Image/buttons/save/save.component';
+import { ShareComponent } from './Image/buttons/share/share.component';
+import { DownloadCanvasComponent } from './Image/buttons/download-canvas/download-canvas.component';
+import { RemoveImageComponent } from './Image/buttons/remove-image/remove-image.component';
+import { ShareWindowComponent } from './Image/share-window/share-window.component'
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { AlertModule } from 'ng2-bootstrap';
+import { AuthenticationService } from './base/authentication.service';
+import { BiggerImageComponent } from './Image/buttons/bigger-image/bigger-image.component';
+import { ActivationUserComponent } from './User/activation-user/activation-user.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    ContentComponent,
-    FooterComponent,
-    CreatorComponent,
-    InputDataTextComponent,
-    CloudDataGridComponent,
-    UserGalleryComponent,
-    RegisterComponent,
-    LoginComponent,
-    PassChangeComponent,
-    ResetPasswordComponent,
-    LogOutComponent,
-    SaveComponent,
-    ShareComponent,
-    SafePipe,
-    DownloadCanvasComponent,
-    RemoveImageComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    routing
-  ],
-  providers: [CloudService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        ContentComponent,
+        FooterComponent,
+        CreatorComponent,
+        InputDataTextComponent,
+        CloudDataGridComponent,
+        UserGalleryComponent,
+        RegisterComponent,
+        LoginComponent,
+        PassChangeComponent,
+        ResetPasswordComponent,
+        LogOutComponent,
+        SaveComponent,
+        ShareComponent,
+        DownloadCanvasComponent,
+        RemoveImageComponent,
+        ShareWindowComponent,
+        BiggerImageComponent,
+        ActivationUserComponent
+    ],
+    imports: [
+        BrowserModule,
+        AlertModule.forRoot(),
+        FormsModule,
+        HttpModule,
+        routing
+    ],
+    providers: [AuthenticationService, {provide: LocationStrategy, useClass: HashLocationStrategy}],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

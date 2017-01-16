@@ -1,47 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-import { Base } from './../Base';
-import { BaseService } from './../base.service';
+import { Authentication } from '../Authentication';
+import { AuthenticationService } from '../authentication.service';
 
 @Component({
     selector: 'content',
     templateUrl: './content.component.html',
-    styleUrls: ['./content.component.css'],
-    providers: [BaseService]
+    styleUrls: ['./content.component.css']
 })
-export class ContentComponent extends Base implements OnInit {
+export class ContentComponent extends Authentication implements OnInit {
     private header:string;
     private undertext:string;
 
-    constructor(protected _defaultService : BaseService) {
+    constructor(protected _defaultService : AuthenticationService) {
         super(_defaultService);
-
-
         this.isLogged();
     }
 
     ngOnInit() {
     }
 
-    handleResponse(response){
-        console.log(response)
-        this.isUserLogged = true;
-        this.userName = response.message.login;
-        this.setCorrectText();
-    }
-
-    private setCorrectText(){
-        console.log(this.isUserLogged);
-        if(this.isUserLogged!==true){
-            this.setContentText("FIRST WAS THE WORD", "Show your text in a cloud")
-        }else{
-            this.setContentText("HI! "+this.userName, "Let's get started!")
-        }
-
-    }
-
     private setContentText(header:string, undertext:string){
         this.header = header;
         this.undertext = undertext;
+
+    }
+
+    protected setLoggedInformations(){
+        this.setContentText("HI! "+this._defaultService.userName, "Let's get started!")
+    }
+
+    protected setUnLoggedInformations(){
+        this.setContentText("FIRST WAS THE WORD", "Show your text in a cloud")
 
     }
 

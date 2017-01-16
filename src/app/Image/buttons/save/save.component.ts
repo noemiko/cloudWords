@@ -1,16 +1,16 @@
 import { Component, OnInit, ViewChild, Input} from '@angular/core';
 import { Http, Response, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
-import { ImageService } from './../Image.service';
-import { Image } from './../Image';
+import { ImageService } from './../../Image.service';
+import { Image } from './../../Image';
 
 
 import 'rxjs/Rx';
 
 @Component({
   selector: 'save',
-  templateUrl: './save.component.html',
-  styleUrls: ['./save.component.css'],
+  templateUrl: 'save.component.html',
+  styleUrls: ['save.component.css'],
   providers:[ImageService]
 })
 export class SaveComponent implements OnInit {

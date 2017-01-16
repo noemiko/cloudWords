@@ -2,10 +2,10 @@ import {Injectable}               from '@angular/core';
 import {Http}                     from '@angular/http';
 import {Observable}               from 'rxjs/Observable';
 import {User}                     from './User';
-import {BaseService}           from '../base/base.service';
+import {AuthenticationService}           from '../base/authentication.service';
 
 @Injectable()
-export class UserService extends BaseService {
+export class UserService extends AuthenticationService {
 
     constructor (protected _http: Http) {
         super(_http);
@@ -15,11 +15,20 @@ export class UserService extends BaseService {
     private _logInUrl = this.backendPath+'login.php';
     private _changePassUrl = this.backendPath+'chagnePasswordWhenLogedIn.php';
     private _resetPass = this.backendPath+'verifymail.php';
-    private _changePassByHashUrl = this.backendPath+'hangePassworByMail.php';
+    private _changePassByHashUrl = this.backendPath+'changePassworByMail.php';
     private _logOutUrl = this.backendPath+'logout.php';
+    private _activationUrl = this.backendPath+'accountActivated.php';
+
+    public activate(user:User): Observable<string>{
+        let body = `mail=${user.mail}&hash=${user.hash}`;
+
+        return this._http.post(this._activationUrl, body, this.options)
+            .map(res =>  <string> res.json())
+            .catch(this.handleError)
+    }
 
     public add(user:User): Observable<string>{
-        let body = `login=${user.Login}&mail=${user.Mail}&password=${user.Password}&password2=${user.Password2}`;
+        let body = `login=${user.login}&mail=${user.mail}&password=${user.password}&password2=${user.password2}`;
 
         return this._http.post(this._registerUrl, body, this.options)
             .map(res =>  <string> res.json())
@@ -57,7 +66,9 @@ export class UserService extends BaseService {
             .catch(this.handleError)
     }
     public logOut() {
-        return this._http.post(this._logOutUrl,'',this.options)
+        let gfg = 'kk'
+        let body = `mail=${gfg}`;
+        return this._http.post(this._logOutUrl,body,this.options)
             .map(res =>  <string> res.json())
             .catch(this.handleError)
     }

@@ -8,8 +8,8 @@ import {LoginComponent} from "./User/login/login.component";
 import { PassChangeComponent } from './User/user-profile/pass-change.component';
 import { ResetPasswordComponent } from './User/reset-password/reset-password.component';
 import { LogOutComponent } from './User/log-out/log-out.component';
-
-
+import { ShareWindowComponent } from './Image/share-window/share-window.component'
+import { ActivationUserComponent } from './User/activation-user/activation-user.component';
 
 const APP_ROUTES: Routes = [
     {path:'', component:ContentComponent},
@@ -17,10 +17,12 @@ const APP_ROUTES: Routes = [
     {path:'gallery', component:UserGalleryComponent},
     {path:'register', component:RegisterComponent},
     {path:'login', component:LoginComponent},
-    {path:'changepass', component:PassChangeComponent},
+    {path:'changepass', component:PassChangeComponent},//changing password when logged
     {path:'resetpass', component:ResetPasswordComponent},
-    {path:'changepass/:email/:hash', component:PassChangeComponent},
+    {path:'changepass/:email/:hash', component:PassChangeComponent},//changing password using e-mail link
     {path:'logout', component:LogOutComponent},
+    {path:'share/:id/:hash', component:ShareWindowComponent},
+    {path:'activate/:email/:hash', component:ActivationUserComponent},
 ];
 
 export const routing = RouterModule.forRoot(APP_ROUTES);

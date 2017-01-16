@@ -26,7 +26,7 @@ private input = {mail:''};
     }
  
     handleResponse(response){
-
+      console.log(response)
       if(response.error ==false){
         this.info = 'Reset link was send'
       }

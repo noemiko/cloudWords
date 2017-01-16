@@ -3,18 +3,19 @@
             <div class="col-xs-12 col-sm-8 col-md-4 col-sm-offset-2 col-md-offset-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">LogIn</h3>
+                        <h3 class="panel-title">Pass change</h3>
                     </div>
                     <div class="panel-body">
+                        {{information}}
                         <form role="form" (ngSubmit)="changePassword($event)">
                             <div class="form-group " *ngIf="isResetWhenUserIsLogged">
-                                <input [(ngModel)]="input.currentPassword" placeholder="Actual password" name="currentPassword" type="password" class="form-control">
+                                <input [(ngModel)]="input.currentPassword" placeholder="Actual password" name="currentPassword" type="password" class="form-control" required>
                             </div>
                             <div class="form-group ">
-                                <input [(ngModel)]="input.password1" name="password1" type="password" class="form-control" placeholder="New password">
+                                <input [(ngModel)]="input.password1" name="password1" type="password" class="form-control" placeholder="New password" required>
                             </div>
                             <div class="form-group">
-                                <input [(ngModel)]="input.password2" name="password2" type="password" class="form-control" placeholder="Confirm new password">
+                                <input [(ngModel)]="input.password2" name="password2" type="password" class="form-control" placeholder="Confirm new password" required>
                             </div>
 
                             <button type="submit" class="btn btn-info btn-block">Change Password</button>

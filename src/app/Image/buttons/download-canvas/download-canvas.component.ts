@@ -2,8 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'download-canvas',
-  templateUrl: './download-canvas.component.html',
-  styleUrls: ['./download-canvas.component.css']
+  templateUrl: 'download-canvas.component.html',
+  styleUrls: ['download-canvas.component.css']
 })
 export class DownloadCanvasComponent implements OnInit {
   @Input() imageUrl:any='';

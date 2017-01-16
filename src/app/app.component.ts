@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component , ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html'
+    selector: 'app-root',
+    template: `<navigation-bar></navigation-bar>
+              <router-outlet></router-outlet>
+              <footer></footer>`
 })
 export class AppComponent {
 

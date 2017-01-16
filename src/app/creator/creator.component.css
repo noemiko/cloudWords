@@ -17,13 +17,13 @@ img-responsive{
     display: block;
 }
 .cloud-square{
-    height:500px;
+    height:300px;
     border:1px solid black;
 }
 
 @media screen and (max-width: 765px) {
     .cloud-square{
-        height:150px;
+        height:200px;
         border:1px solid black;
     }
 }

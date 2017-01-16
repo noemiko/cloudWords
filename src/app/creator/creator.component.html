@@ -2,17 +2,18 @@
   <div class="row">
 
 
-        <div class="col-sm-12 col-md-6 col-lg-6 cloud-square">
+        <div class="col-sm-7 col-md-7 col-lg-7 cloud-square">
             <div class="panel">
-                <save *ngIf="isUserLogged" [imageUrl]="canvasUrl"></save>
                 <download-canvas  [imageUrl]="canvasUrl"></download-canvas>
+                <save *ngIf="isUserLogged" [imageUrl]="canvasUrl"></save>
+
             </div>
-              <canvas #canvas width="800px" height="600px" style=" display:none;"></canvas>
-               <img #canvasImage width="80%"  [src]="canvasUrl">
+              <canvas #canvas width="1100px" height="700px" style=" display:none;"></canvas>
+               <img #canvasImage width="99%"  [src]="canvasUrl">
 
         </div>
 
-    <div class="col-sm-12 col-md-6 col-lg-6">
+    <div class="col-sm-5 col-md-5 col-lg-5">
         <button type="button" class="btn btn-default btn-block" (click)="showInput()">Input Text</button>
         <div *ngIf="ShowInput">
             <input-data-text (textToManipulate)="setTextToManipulate($event)"></input-data-text>
